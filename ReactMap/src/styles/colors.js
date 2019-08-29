@@ -1,6 +1,7 @@
 const colors = {
     white:'#FFF',
     Black:'#000',
+    Divinder:'#DBDBDB',
 
     // For White Text in MaterialDesign
     MainTextW:'#FFF',
