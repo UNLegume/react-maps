@@ -4,19 +4,13 @@ import { colors } from '../../styles';
 const styles = StyleSheet.create({
     container:{
         flex:1,
+        alignItems:'center',
+        justifyContent:'center',
         backgroundColor:colors.BGColor,
-        alignContent:'center',
     },
     map:{
         flex:1,
-    },
-
-    user:{
-        marginLeft:200,
-        marginTop:50,
-    },
-
-
+    }
 });
 
 export default styles;
