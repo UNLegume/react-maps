@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import { Button, Avatar, SearchBar, Card } from 'react-native-elements';
-import { MapView, Marker } from 'react-native-maps';
+import MapView from 'react-native-maps';
 import s from './styles';
 import { colors } from '../../styles';
 
@@ -17,9 +17,17 @@ class HomeScreenView extends React.Component {
                         latitude: 34.983732,
                         longitude: 136.905862,
                     },
-                    title: 'marker1',
-                    description: 'my badass place',
+                    latitudeDelta: 0.0922,
+                    longitudeDelta: 0.0421
                 },
+                {
+                    latlng: {
+                        latitude: 35.983732,
+                        longitude: 137.905862,
+                    },
+                    latitudeDelta: 0.0922,
+                    longitudeDelta: 0.0421
+                }
             ],
         }
     }
@@ -71,13 +79,13 @@ class HomeScreenView extends React.Component {
                             longitude: 136.905862,
                         }}
                     >
-                        { this.state.markers.map(marker => (
-                            <Marker
-                                coordinate={marker.latlng}
-                                title={marker.title}
-                                description={marker.description}
+                        {this.state.markers.map(marker => (
+                            <MapView.Marker
+                            coordinate={marker.latlng}
+                            latitudeDelta={marker.latitudeDelta}
+                            longitudeDelta={marker.longitudeDelta}
                             />
-                        )) }
+                        ))}
                     </MapView>
             </View>
         );
