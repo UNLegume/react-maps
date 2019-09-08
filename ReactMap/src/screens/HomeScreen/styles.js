@@ -1,5 +1,8 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import { colors } from '../../styles';
+
+const width = Dimensions.get('window').width;
+const height = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
     container:{
@@ -7,8 +10,11 @@ const styles = StyleSheet.create({
         backgroundColor:colors.BGColor,
         alignContent:'center',
     },
+
     map:{
         flex:1,
+        width: width,
+        height: height,
     },
 
     user:{
@@ -16,6 +22,11 @@ const styles = StyleSheet.create({
         marginTop:50,
     },
 
+    addLocationButton: {
+        position: 'absolute',
+        right: 20,
+        bottom: 20,
+    },
 
 });
 

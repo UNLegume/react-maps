@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import { Button, Avatar, SearchBar, Card } from 'react-native-elements';
 import MapView from 'react-native-maps';
+import { AddLocation } from '../../components';
 import s from './styles';
 import { colors } from '../../styles';
 
@@ -62,31 +63,35 @@ class HomeScreenView extends React.Component {
                         KoyanagiRyouta
                     </Text>
                 </View>
-                    <SearchBar
-                        containerStyle={{
-                            backgroundColor:colors.BGColor,
-                            borderColor:colors.BGColor,
-                        }}
-                        placeholder="Search for"
-                        onChangeText={this.updateSearch}
-                        value={search}
-                        round
-                    />
-                    <MapView
-                        style = {s.map}
-                        initialRegion={{
-                            latitude: 34.983732,
-                            longitude: 136.905862,
-                        }}
-                    >
-                        {this.state.markers.map(marker => (
-                            <MapView.Marker
-                            coordinate={marker.latlng}
-                            latitudeDelta={marker.latitudeDelta}
-                            longitudeDelta={marker.longitudeDelta}
-                            />
-                        ))}
-                    </MapView>
+                <SearchBar
+                    containerStyle={{
+                        backgroundColor:colors.BGColor,
+                        borderColor:colors.BGColor,
+                    }}
+                    placeholder="Search for"
+                    onChangeText={this.updateSearch}
+                    value={search}
+                    round
+                />
+                <MapView
+                    style = {s.map}
+                    initialRegion={{
+                        latitude: 34.983732,
+                        longitude: 136.905862,
+                    }}
+                >
+                    {this.state.markers.map(marker => (
+                        <MapView.Marker
+                        coordinate={marker.latlng}
+                        latitudeDelta={marker.latitudeDelta}
+                        longitudeDelta={marker.longitudeDelta}
+                        />
+                    ))}
+
+                    <View style={s.addLocationButton}>
+                        <AddLocation />
+                    </View>
+                </MapView>
             </View>
         );
     }
