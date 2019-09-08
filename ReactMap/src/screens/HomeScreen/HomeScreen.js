@@ -1,35 +1,43 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import { Button, Avatar, SearchBar, Card } from 'react-native-elements';
-import MapView from 'react-native-maps';
+import { MapView, Marker } from 'react-native-maps';
 import s from './styles';
 import { colors } from '../../styles';
 
 
-class HomeScreenView extends React.Component{
-    state = {
-        search:'',
-        userName:'aaaaaaaaaaaaaa',
-    };
+class HomeScreenView extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            search: '',
+            markers: [
+                {
+                    latlng: {
+                        latitude: 34.983732,
+                        longitude: 136.905862,
+                    },
+                    title: 'marker1',
+                    description: 'my badass place',
+                },
+            ],
+        }
+    }
 
-    updateSearch = search =>{
-        this.setState({search});
-    };
-
-    render(){
+    render() {
     const { search } = this.state.search;
     // const { userName } = this.state.userName;
 
         return(
             <View style={s.container}>
                 <View
-                 style={{
-                     flexDirection: 'row',
-                     marginTop:40,
-                     marginLeft:20,
-                     marginBottom:20,
+                    style={{
+                    flexDirection: 'row',
+                    marginTop:40,
+                    marginLeft:20,
+                    marginBottom:20,
                     }}
-                 >
+                    >
                     <Avatar
                         size='large'
                         title='User'
@@ -58,7 +66,19 @@ class HomeScreenView extends React.Component{
                     />
                     <MapView
                         style = {s.map}
-                    />
+                        initialRegion={{
+                            latitude: 34.983732,
+                            longitude: 136.905862,
+                        }}
+                    >
+                        { this.state.markers.map(marker => (
+                            <Marker
+                                coordinate={marker.latlng}
+                                title={marker.title}
+                                description={marker.description}
+                            />
+                        )) }
+                    </MapView>
             </View>
         );
     }
