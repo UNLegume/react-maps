@@ -60,6 +60,7 @@ class LoginScreenView extends React.Component{
             }}
             title='Create your acount?'
             type="clear"
+            onPress={() =>this.props.navigation.navigate('Details')}
             />
             <Button
             buttonStyle={{
