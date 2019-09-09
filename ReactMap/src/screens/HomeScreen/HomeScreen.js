@@ -30,16 +30,16 @@ class HomeScreenView extends React.Component{
                      marginBottom:20,
                     }}
                  >
-                    <Avatar
+                    {/* <Avatar
                         size='large'
                         title='User'
                         titleStyle={{fontSize:20}}
                         rounded
-                    />
+                    /> */}
                     <Text
                     style={{
                         fontSize:24,
-                        marginLeft:14,
+                        marginLeft:5,
                         marginTop:5,
                     }}
                     >
@@ -50,10 +50,12 @@ class HomeScreenView extends React.Component{
                         containerStyle={{
                             backgroundColor:colors.BGColor,
                             borderColor:colors.BGColor,
+                            zIndex:2,
                         }}
                         placeholder="Search for"
                         onChangeText={this.updateSearch}
                         value={search}
+                        li
                         round
                     />
                     <MapView

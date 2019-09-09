@@ -44,9 +44,11 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
+import { Ionicons, MaterialIcons} from '@expo/vector-icons';
 
+import FriendListView from './src/screens/FriendList';
 import HomeScreenView from './src/screens/HomeScreen';
-import LoginScreenView from './src/screens/LoginScreen';
+import LocationInfoView from './src/screens/LocationInfo';
 
 class HomeScreen extends React.Component {
   render() {
@@ -56,17 +58,49 @@ class HomeScreen extends React.Component {
   }
 }
 
-class SettingsScreen extends React.Component {
+class FriendListScreen extends React.Component {
   render() {
     return (
-        <LoginScreenView/>
+        <FriendListView/>
     );
   }
 }
 
-const TabNavigator = createBottomTabNavigator({
-  Home: HomeScreen,
-  Settings: SettingsScreen,
-});
+class LocationInfoScreen extends React.Component {
+    render() {
+      return (
+          <LocationInfoView/>
+      );
+    }
+  }
+
+const TabNavigator = createBottomTabNavigator(
+    {
+        Map: HomeScreen,
+        Friend: FriendListScreen,
+        Location:LocationInfoScreen,
+    },
+    {
+        defaultNavigationOptions:({navigation}) => ({
+            tabBarIcon:()=> {
+                const { routeName } = navigation.state;
+                let IconComponent = Ionicons;
+                let iconName;
+                if(routeName === 'Map'){
+                    iconName = 'md-map';
+                }
+                else if(routeName === 'Friend'){
+                    iconName = 'ios-star';
+                }
+                else if(routeName === 'Location'){
+                    iconName = 'place';
+                    IconComponent = MaterialIcons;
+                }
+
+                return <IconComponent name={iconName} size={25}/>
+            },
+        }),
+    }
+);
 
 export default createAppContainer(TabNavigator);
