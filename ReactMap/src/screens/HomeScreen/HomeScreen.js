@@ -5,8 +5,6 @@ import MapView from 'react-native-maps';
 import { AddLocation } from '../../components';
 import s from './styles';
 import { colors } from '../../styles';
-
-
 class HomeScreenView extends React.Component {
     constructor(props) {
         super(props);
@@ -31,6 +29,10 @@ class HomeScreenView extends React.Component {
                 }
             ],
         }
+    }
+
+    obtain = () => {
+        console.log('obtain');
     }
 
     render() {
@@ -88,8 +90,9 @@ class HomeScreenView extends React.Component {
                         />
                     ))}
 
-                    <View style={s.addLocationButton}>
-                        <AddLocation />
+                    <View style={s.addLocationPosition}>
+                        <AddLocation
+                        obtain={this.obtain} />
                     </View>
                 </MapView>
             </View>

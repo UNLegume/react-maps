@@ -67,7 +67,7 @@ class CreateAccountScreenView extends React.Component{
                         width:300,
                         borderRadius:6
                     }}
-                    title="Create"   
+                    title="Create"
                 />
                 <Button
                     buttonStyle={{

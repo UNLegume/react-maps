@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
         marginTop:50,
     },
 
-    addLocationButton: {
+    addLocationPosition: {
         position: 'absolute',
         right: 20,
         bottom: 20,
