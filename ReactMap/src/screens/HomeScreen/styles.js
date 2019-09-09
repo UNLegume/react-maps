@@ -1,5 +1,8 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import { colors } from '../../styles';
+
+const width = Dimensions.get('window').width;
+const height = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
     container:{
@@ -8,8 +11,11 @@ const styles = StyleSheet.create({
         alignContent:'center',
         flexDirection:'column',
     },
+
     map:{
         flex:1,
+        width: width,
+        height: height,
     },
 
     user:{
@@ -17,6 +23,11 @@ const styles = StyleSheet.create({
         marginTop:50,
     },
 
+    addLocationPosition: {
+        position: 'absolute',
+        right: 20,
+        bottom: 20,
+    },
 
 });
 

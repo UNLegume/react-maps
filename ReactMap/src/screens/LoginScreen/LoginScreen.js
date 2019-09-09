@@ -46,7 +46,7 @@ class LoginScreenView extends React.Component{
                     width:300,
                     borderRadius:6
                 }}
-                title="Login"   
+                title="Login"
             />
 
             {/* ForgotButton */}

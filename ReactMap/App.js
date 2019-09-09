@@ -25,7 +25,6 @@
 //       );
 //     }
 //   }
-  
 //   const AppNavigator = createStackNavigator(
 //     {
 //       Login: LoginScreen,

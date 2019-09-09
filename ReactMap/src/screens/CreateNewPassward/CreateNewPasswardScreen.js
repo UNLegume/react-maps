@@ -6,7 +6,7 @@ import s from './styles';
 import { colors } from '../../styles';
 
 class CreateNewPasswardScreenView extends React.Component{
-    render(){
+    render() {
         return(
         <View style={s.container}>
             <Card
@@ -20,7 +20,7 @@ class CreateNewPasswardScreenView extends React.Component{
                 borderRadius:6,
                 borderColor:colors.Divinder,
             }}
-            title='Enter Your New Passward'
+            title='Enter Your New Password'
             >
                 <Input
                 placeholder='UserName'
@@ -41,7 +41,7 @@ class CreateNewPasswardScreenView extends React.Component{
                     width:300,
                     borderRadius:6
                 }}
-                title="Create"   
+                title="Create"
             />
         </View>
         );
