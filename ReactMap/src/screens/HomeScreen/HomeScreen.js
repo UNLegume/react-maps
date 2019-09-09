@@ -22,45 +22,50 @@ class HomeScreenView extends React.Component{
 
         return(
             <View style={s.container}>
-                <View
-                 style={{
-                     flexDirection: 'row',
-                     marginTop:40,
-                     marginLeft:20,
-                     marginBottom:20,
-                    }}
-                 >
-                    {/* <Avatar
-                        size='large'
-                        title='User'
-                        titleStyle={{fontSize:20}}
-                        rounded
-                    /> */}
-                    <Text
-                    style={{
-                        fontSize:24,
-                        marginLeft:5,
-                        marginTop:5,
-                    }}
-                    >
-                        KoyanagiRyouta
-                    </Text>
+                <View style={{
+                    flexDirection:'row',
+                    marginTop:30,
+                    marginLeft:10,
+                    marginBottom:15,
+                }}>
+                {/* <Avatar
+                    size='large'
+                    title='User'
+                    titleStyle={{fontSize:20}}
+                    rounded
+                /> */}
+                <Text
+                style={{
+                    fontSize:24,
+                    marginLeft:5,
+                    marginTop:40,
+                    color:'#FFF',
+                }}
+                >
+                    KoyanagiRyouta
+                </Text>
                 </View>
+                <View style={{marginTop:32,flex:1}}>
                     <SearchBar
                         containerStyle={{
-                            backgroundColor:colors.BGColor,
-                            borderColor:colors.BGColor,
-                            zIndex:2,
+                            backgroundColor:colors.OnBgColor,
+                            borderTopColor:'rgba(0,0,0,0)',
+                            borderBottomColor:'rgba(0,0,0,0)',
+                            borderTopLeftRadius:20,
+                            borderTopRightRadius:20,
+                        }}
+                        inputContainerStyle={{
+                            margin:10,
                         }}
                         placeholder="Search for"
                         onChangeText={this.updateSearch}
                         value={search}
-                        li
                         round
                     />
                     <MapView
                         style = {s.map}
                     />
+                </View>
             </View>
         );
     }

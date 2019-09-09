@@ -6,6 +6,7 @@ const styles = StyleSheet.create({
         flex:1,
         backgroundColor:colors.BGColor,
         alignContent:'center',
+        flexDirection:'column',
     },
     map:{
         flex:1,

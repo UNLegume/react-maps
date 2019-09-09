@@ -49,6 +49,7 @@ import { Ionicons, MaterialIcons} from '@expo/vector-icons';
 import FriendListView from './src/screens/FriendList';
 import HomeScreenView from './src/screens/HomeScreen';
 import LocationInfoView from './src/screens/LocationInfo';
+import { colors } from './src/styles';
 
 class HomeScreen extends React.Component {
   render() {
@@ -81,6 +82,7 @@ const TabNavigator = createBottomTabNavigator(
         Location:LocationInfoScreen,
     },
     {
+        initialRouteName:'Friend',
         defaultNavigationOptions:({navigation}) => ({
             tabBarIcon:()=> {
                 const { routeName } = navigation.state;
@@ -100,6 +102,11 @@ const TabNavigator = createBottomTabNavigator(
                 return <IconComponent name={iconName} size={25}/>
             },
         }),
+        // tabBarOptions:{
+        //   style={
+        //     backgroundColor:colors.ButtonYellow,
+        //   }
+        // }
     }
 );
 
