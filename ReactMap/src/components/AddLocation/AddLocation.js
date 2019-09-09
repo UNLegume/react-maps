@@ -6,7 +6,8 @@ import { Entypo } from '@expo/vector-icons';
 import { colors } from '../../styles';
 
 const AddLocation = ({
-    obtain = noop
+    obtain,
+    region = 'region'
 }) =>  {
     return (
         <Button
@@ -26,7 +27,7 @@ const AddLocation = ({
             />
         }
         onPress={() => {
-            obtain();
+            obtain(region.latitude);
             console.log('buttoooooooon');
         }}
         >

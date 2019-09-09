@@ -8,6 +8,7 @@ import { colors } from '../../styles';
 class HomeScreenView extends React.Component {
     constructor(props) {
         super(props);
+        this.getInitialState();
         this.state = {
             search: '',
             markers: [
@@ -28,11 +29,33 @@ class HomeScreenView extends React.Component {
                     longitudeDelta: 0.0421
                 }
             ],
+            region: {
+                latitude: 34.983732,
+                longitude: 136.905862,
+                latitudeDelta: 0.0922,
+                longitudeDelta: 0.0421,
+            }
         }
     }
 
-    obtain = () => {
-        console.log('obtain');
+    obtain = (region) => {
+        console.log(region);
+    }
+
+    getInitialState = () => {
+        return {
+            region: {
+                latitude: 34.983732,
+                longitude: 136.905862,
+                latitudeDelta: 0.0922,
+                longitudeDelta: 0.0421,
+            },
+        }
+    }
+
+    onRegionChange = (region) => {
+        this.setState({ region });
+        console.log(region);
     }
 
     render() {
@@ -80,7 +103,10 @@ class HomeScreenView extends React.Component {
                     initialRegion={{
                         latitude: 34.983732,
                         longitude: 136.905862,
+                        latitudeDelta: 0.0922,
+                        longitudeDelta: 0.0421,
                     }}
+                    onRegionChange={this.onRegionChange}
                 >
                     {this.state.markers.map(marker => (
                         <MapView.Marker
@@ -92,7 +118,9 @@ class HomeScreenView extends React.Component {
 
                     <View style={s.addLocationPosition}>
                         <AddLocation
-                        obtain={this.obtain} />
+                        obtain={this.obtain}
+                        region={this.state.region}
+                        />
                     </View>
                 </MapView>
             </View>
