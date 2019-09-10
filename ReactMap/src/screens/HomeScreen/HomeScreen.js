@@ -8,217 +8,251 @@ import { colors } from '../../styles';
 
 mapstyle = [
     {
-        "elementType": "geometry",
-        "stylers": [
+      "elementType": "geometry",
+      "stylers": [
         {
-            "color": "#ebe3cd"
+          "color": "#ebe3cd"
         }
-        ]
+      ]
     },
     {
-        "elementType": "labels.text.fill",
-        "stylers": [
+      "elementType": "labels.text.fill",
+      "stylers": [
         {
-            "color": "#523735"
+          "color": "#523735"
         }
-        ]
+      ]
     },
     {
-        "elementType": "labels.text.stroke",
-        "stylers": [
+      "elementType": "labels.text.stroke",
+      "stylers": [
         {
-            "color": "#f5f1e6"
+          "color": "#f5f1e6"
         }
-        ]
+      ]
     },
     {
-        "featureType": "administrative",
-        "elementType": "geometry.stroke",
-        "stylers": [
+      "featureType": "administrative",
+      "elementType": "geometry",
+      "stylers": [
         {
-            "color": "#c9b2a6"
+          "visibility": "off"
         }
-        ]
+      ]
     },
     {
-        "featureType": "administrative.land_parcel",
-        "elementType": "geometry.stroke",
-        "stylers": [
+      "featureType": "administrative",
+      "elementType": "geometry.stroke",
+      "stylers": [
         {
-            "color": "#dcd2be"
+          "color": "#c9b2a6"
         }
-        ]
+      ]
     },
     {
-        "featureType": "administrative.land_parcel",
-        "elementType": "labels.text.fill",
-        "stylers": [
+      "featureType": "administrative.land_parcel",
+      "elementType": "geometry.stroke",
+      "stylers": [
         {
-            "color": "#ae9e90"
+          "color": "#dcd2be"
         }
-        ]
+      ]
     },
     {
-        "featureType": "landscape.natural",
-        "elementType": "geometry",
-        "stylers": [
+      "featureType": "administrative.land_parcel",
+      "elementType": "labels.text.fill",
+      "stylers": [
         {
-            "color": "#dfd2ae"
+          "color": "#ae9e90"
         }
-        ]
+      ]
     },
     {
-        "featureType": "poi",
-        "elementType": "geometry",
-        "stylers": [
+      "featureType": "landscape.natural",
+      "elementType": "geometry",
+      "stylers": [
         {
-            "color": "#dfd2ae"
+          "color": "#dfd2ae"
         }
-        ]
+      ]
     },
     {
-        "featureType": "poi",
-        "elementType": "labels.text.fill",
-        "stylers": [
+      "featureType": "poi",
+      "stylers": [
         {
-            "color": "#93817c"
+          "visibility": "off"
         }
-        ]
+      ]
     },
     {
-        "featureType": "poi.park",
-        "elementType": "geometry.fill",
-        "stylers": [
+      "featureType": "poi",
+      "elementType": "geometry",
+      "stylers": [
         {
-            "color": "#a5b076"
+          "color": "#dfd2ae"
         }
-        ]
+      ]
     },
     {
-        "featureType": "poi.park",
-        "elementType": "labels.text.fill",
-        "stylers": [
+      "featureType": "poi",
+      "elementType": "labels.text.fill",
+      "stylers": [
         {
-            "color": "#447530"
+          "color": "#93817c"
         }
-        ]
+      ]
     },
     {
-        "featureType": "road",
-        "elementType": "geometry",
-        "stylers": [
+      "featureType": "poi.park",
+      "elementType": "geometry.fill",
+      "stylers": [
         {
-            "color": "#f5f1e6"
+          "color": "#a5b076"
         }
-        ]
+      ]
     },
     {
-        "featureType": "road.arterial",
-        "elementType": "geometry",
-        "stylers": [
+      "featureType": "poi.park",
+      "elementType": "labels.text.fill",
+      "stylers": [
         {
-            "color": "#fdfcf8"
+          "color": "#447530"
         }
-        ]
+      ]
     },
     {
-        "featureType": "road.highway",
-        "elementType": "geometry",
-        "stylers": [
+      "featureType": "road",
+      "elementType": "geometry",
+      "stylers": [
         {
-            "color": "#f8c967"
+          "color": "#f5f1e6"
         }
-        ]
+      ]
     },
     {
-        "featureType": "road.highway",
-        "elementType": "geometry.stroke",
-        "stylers": [
+      "featureType": "road",
+      "elementType": "labels.icon",
+      "stylers": [
         {
-            "color": "#e9bc62"
+          "visibility": "off"
         }
-        ]
+      ]
     },
     {
-        "featureType": "road.highway.controlled_access",
-        "elementType": "geometry",
-        "stylers": [
+      "featureType": "road.arterial",
+      "elementType": "geometry",
+      "stylers": [
         {
-            "color": "#e98d58"
+          "color": "#fdfcf8"
         }
-        ]
+      ]
     },
     {
-        "featureType": "road.highway.controlled_access",
-        "elementType": "geometry.stroke",
-        "stylers": [
+      "featureType": "road.highway",
+      "elementType": "geometry",
+      "stylers": [
         {
-            "color": "#db8555"
+          "color": "#f8c967"
         }
-        ]
+      ]
     },
     {
-        "featureType": "road.local",
-        "elementType": "labels.text.fill",
-        "stylers": [
+      "featureType": "road.highway",
+      "elementType": "geometry.stroke",
+      "stylers": [
         {
-            "color": "#806b63"
+          "color": "#e9bc62"
         }
-        ]
+      ]
     },
     {
-        "featureType": "transit.line",
-        "elementType": "geometry",
-        "stylers": [
+      "featureType": "road.highway.controlled_access",
+      "elementType": "geometry",
+      "stylers": [
         {
-            "color": "#dfd2ae"
+          "color": "#e98d58"
         }
-        ]
+      ]
     },
     {
-        "featureType": "transit.line",
-        "elementType": "labels.text.fill",
-        "stylers": [
+      "featureType": "road.highway.controlled_access",
+      "elementType": "geometry.stroke",
+      "stylers": [
         {
-            "color": "#8f7d77"
+          "color": "#db8555"
         }
-        ]
+      ]
     },
     {
-        "featureType": "transit.line",
-        "elementType": "labels.text.stroke",
-        "stylers": [
+      "featureType": "road.local",
+      "elementType": "labels.text.fill",
+      "stylers": [
         {
-            "color": "#ebe3cd"
+          "color": "#806b63"
         }
-        ]
+      ]
     },
     {
-        "featureType": "transit.station",
-        "elementType": "geometry",
-        "stylers": [
+      "featureType": "transit",
+      "stylers": [
         {
-            "color": "#dfd2ae"
+          "visibility": "off"
         }
-        ]
+      ]
     },
     {
-        "featureType": "water",
-        "elementType": "geometry.fill",
-        "stylers": [
+      "featureType": "transit.line",
+      "elementType": "geometry",
+      "stylers": [
         {
-            "color": "#b9d3c2"
+          "color": "#dfd2ae"
         }
-        ]
+      ]
     },
     {
-        "featureType": "water",
-        "elementType": "labels.text.fill",
-        "stylers": [
+      "featureType": "transit.line",
+      "elementType": "labels.text.fill",
+      "stylers": [
         {
-            "color": "#92998d"
+          "color": "#8f7d77"
         }
-        ]
+      ]
+    },
+    {
+      "featureType": "transit.line",
+      "elementType": "labels.text.stroke",
+      "stylers": [
+        {
+          "color": "#ebe3cd"
+        }
+      ]
+    },
+    {
+      "featureType": "transit.station",
+      "elementType": "geometry",
+      "stylers": [
+        {
+          "color": "#dfd2ae"
+        }
+      ]
+    },
+    {
+      "featureType": "water",
+      "elementType": "geometry.fill",
+      "stylers": [
+        {
+          "color": "#b9d3c2"
+        }
+      ]
+    },
+    {
+      "featureType": "water",
+      "elementType": "labels.text.fill",
+      "stylers": [
+        {
+          "color": "#92998d"
+        }
+      ]
     }
     ]
 class HomeScreenView extends React.Component {
@@ -263,8 +297,8 @@ class HomeScreenView extends React.Component {
             region: {
                 latitude: 34.983732,
                 longitude: 136.905862,
-                latitudeDelta: 0.0922,
-                longitudeDelta: 0.0421,
+                latitudeDelta: 0.0092,
+                longitudeDelta: 0.0042,
             },
         }
     }
@@ -275,8 +309,13 @@ class HomeScreenView extends React.Component {
     }
 
     render() {
-    const { search } = this.state.search;
-    // const { userName } = this.state.userName;
+        navigator.geolocation.getCurrentPosition(
+            pos => console.log(pos.coords.latitude),
+            err => console.log(err)
+        )
+
+        const { search } = this.state.search;
+        // const { userName } = this.state.userName;
 
         return(
             <View style={s.container}>
@@ -321,8 +360,8 @@ class HomeScreenView extends React.Component {
                     initialRegion={{
                         latitude: 34.983732,
                         longitude: 136.905862,
-                        latitudeDelta: 0.0922,
-                        longitudeDelta: 0.0421,
+                        latitudeDelta: 0.0092,
+                        longitudeDelta: 0.0042,
                     }}
                     onRegionChange={this.onRegionChange}
                 >
