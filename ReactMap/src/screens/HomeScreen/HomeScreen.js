@@ -293,14 +293,19 @@ class HomeScreenView extends React.Component {
     }
 
     getInitialState = () => {
-        return {
-            region: {
-                latitude: 34.983732,
-                longitude: 136.905862,
-                latitudeDelta: 0.0092,
-                longitudeDelta: 0.0042,
+        navigator.geolocation.getCurrentPosition(
+            pos => {
+                return {
+                    region: {
+                        latitude: pos.coords.latitude,
+                        longitude: pos.coords.longitude,
+                        latitudeDelta: 0.0092,
+                        longitudeDelta: 0.0042,
+                    },
+                }
             },
-        }
+            err => console.log(err)
+        )
     }
 
     onRegionChange = (region) => {
@@ -309,10 +314,6 @@ class HomeScreenView extends React.Component {
     }
 
     render() {
-        navigator.geolocation.getCurrentPosition(
-            pos => console.log(pos.coords.latitude),
-            err => console.log(err)
-        )
 
         const { search } = this.state.search;
         // const { userName } = this.state.userName;
