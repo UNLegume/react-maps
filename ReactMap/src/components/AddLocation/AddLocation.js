@@ -1,5 +1,5 @@
 import React from 'react';
-import View from 'react-native';
+import { View } from 'react-native';
 import s from './styles';
 import { Button } from 'react-native-elements';
 import { Entypo } from '@expo/vector-icons';
@@ -10,30 +10,23 @@ const AddLocation = ({
     region = 'region'
 }) =>  {
     return (
-        <Button
-        buttonStyle={s.container}
-        icon={
-            <Entypo
-            name="location-pin"
-            size={30}
-            color="white"
-            />
-        }
-        /*
-        title={
-            <Entypo
-            name="location-pin"
-            size={30}
-            color="white"
-            />
-        }
-        */
-        onPress={() => {
-            obtain(region.latitude);
-            console.log('buttoooooooon');
-        }}
-        >
-        </Button>
+        <View style={s.container}>
+            <Button
+            buttonStyle={s.button}
+            icon={
+                <Entypo
+                name="location-pin"
+                size={30}
+                color="white"
+                />
+            }
+            onPress={() => {
+                obtain(region.latitude);
+                console.log('buttoooooooon');
+            }}
+            >
+            </Button>
+        </View>
     )
 }
 
