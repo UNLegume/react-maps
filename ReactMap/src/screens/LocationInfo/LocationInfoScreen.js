@@ -12,10 +12,11 @@ class LocationInfoScreenView extends React.Component{
         for(let i = 0; i<10; i++){
             Locationlist.push(
                 <ListItem
+                key={i}
                 title='aaaa'
-                    containerStyle={{
-                        backgroundColor:'#FFF',
-                    }}
+                containerStyle={{
+                    backgroundColor:'#FFF',
+                }}
                 bottomDivider='true'
                 />
             );

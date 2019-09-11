@@ -315,7 +315,7 @@ class HomeScreenView extends React.Component {
 
     render() {
 
-        const { search } = this.state.search;
+        // const { search } = this.state.search;
         // const { userName } = this.state.userName;
 
         return(
@@ -351,7 +351,7 @@ class HomeScreenView extends React.Component {
                     }}
                     placeholder="Search for"
                     onChangeText={this.updateSearch}
-                    value={search}
+                    value={this.state.search}
                     round
                 />
                 <MapView
@@ -366,8 +366,9 @@ class HomeScreenView extends React.Component {
                     }}
                     onRegionChange={this.onRegionChange}
                 >
-                    {this.state.markers.map(marker => (
+                    {this.state.markers.map((marker, index) => (
                         <MapView.Marker
+                        key={index}
                         coordinate={marker.latlng}
                         latitudeDelta={marker.latitudeDelta}
                         longitudeDelta={marker.longitudeDelta}

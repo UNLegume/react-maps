@@ -12,6 +12,7 @@ class FriendListScreenView extends React.Component{
         for(let i = 0; i<10; i++){
             friendlist.push(
                 <ListItem
+                key={i}
                 title='aaaa'
                     containerStyle={{
                         backgroundColor:'#FFF',

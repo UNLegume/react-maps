@@ -12,13 +12,14 @@ const AddLocation = ({
     return (
         <Button
         buttonStyle={s.container}
-        // icon={
-        //     <Entypo
-        //     name="location-pin"
-        //     size={30}
-        //     color="white"
-        //     />
-        // }
+        icon={
+            <Entypo
+            name="location-pin"
+            size={30}
+            color="white"
+            />
+        }
+        /*
         title={
             <Entypo
             name="location-pin"
@@ -26,6 +27,7 @@ const AddLocation = ({
             color="white"
             />
         }
+        */
         onPress={() => {
             obtain(region.latitude);
             console.log('buttoooooooon');
