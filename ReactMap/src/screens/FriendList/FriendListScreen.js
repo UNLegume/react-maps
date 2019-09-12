@@ -17,7 +17,7 @@ class FriendListScreenView extends React.Component{
                     containerStyle={{
                         backgroundColor:'#FFF',
                     }}
-                bottomDivider='true'
+                bottomDivider={true}
                 />
             );
         }

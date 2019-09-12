@@ -258,9 +258,12 @@ mapstyle = [
 class HomeScreenView extends React.Component {
     constructor(props) {
         super(props);
-        this.getInitialState();
         this.state = {
             search: '',
+            latitude: 35.983732,
+            longitude: 137.905862,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
             markers: [
                 {
                     latlng: {
@@ -286,23 +289,27 @@ class HomeScreenView extends React.Component {
                 longitudeDelta: 0.0421,
             }
         }
+
+        this.setInitialState = this.setInitialState.bind(this);
     }
 
     obtain = (region) => {
         console.log(region);
     }
 
-    getInitialState = () => {
+    setInitialState = () => {
         navigator.geolocation.getCurrentPosition(
             pos => {
+              this.setState(() => {
+                console.log('lat:'+pos.coords.latitude)
                 return {
-                    region: {
-                        latitude: pos.coords.latitude,
-                        longitude: pos.coords.longitude,
-                        latitudeDelta: 0.0092,
-                        longitudeDelta: 0.0042,
-                    },
+                  latitude: pos.coords.latitude,
+                  longitude: pos.coords.longitude,
+                  latitudeDelta: 0.0922,
+                  longitudeDelta: 0.0421,
                 }
+              })
+              //console.log(this.state.latitude)
             },
             err => console.log(err)
         )
@@ -313,8 +320,13 @@ class HomeScreenView extends React.Component {
         console.log(region);
     }
 
-    render() {
+    componentDidUpdate() {
+      this.setInitialState();
+    }
 
+    render() {
+        //console.log(this.state.latitude)
+        //console.log(typeof this.state.latitude)
         // const { search } = this.state.search;
         // const { userName } = this.state.userName;
 
@@ -331,7 +343,8 @@ class HomeScreenView extends React.Component {
                     <Avatar
                         size='large'
                         title='User'
-                        titleStyle={{fontSize:20}}
+                        titleStyle={{fontSize:20}
+                        }
                         rounded
                     />
                     <Text
@@ -359,10 +372,10 @@ class HomeScreenView extends React.Component {
                     customMapStyle={mapstyle}
                     style={s.map}
                     initialRegion={{
-                        latitude: 34.983732,
-                        longitude: 136.905862,
-                        latitudeDelta: 0.0092,
-                        longitudeDelta: 0.0042,
+                      latitude: this.state.latitude,
+                      longitude: this.state.longitude,
+                      latitudeDelta: 0.0092,
+                      longitudeDelta: 0.0042,
                     }}
                     onRegionChange={this.onRegionChange}
                 >
