@@ -1,7 +1,4 @@
 
-// import CreateAccountView from './src/screens/CreateAccount';
-// import CreateNewPasswardView from './src/screens/CreateNewPassward';
-// import SendEmailView from './src/screens/SendEmail';
 
 // import React from 'react';
 // import { View, Text, Button} from 'react-native';
@@ -40,73 +37,134 @@
 
 
 import React from 'react';
-import { Text, View } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { Ionicons, MaterialIcons} from '@expo/vector-icons';
+import { createStackNavigator } from 'react-navigation-stack';
 
 import FriendListView from './src/screens/FriendList';
 import HomeScreenView from './src/screens/HomeScreen';
 import LocationInfoView from './src/screens/LocationInfo';
+
+import LoginView from './src/screens/LoginScreen';
+import CreateAccountView from './src/screens/CreateAccount';
+import CreateNewPasswardView from './src/screens/CreateNewPassward';
+import SendEmailView from './src/screens/SendEmail';
+
 import { colors } from './src/styles';
+import FriendScreenView from './src/screens/FriendList';
+import LocationInfoScreenView from './src/screens/LocationInfo';
 
-class HomeScreen extends React.Component {
-  render() {
-    return (
-        <HomeScreenView/>
+export default class App extends React.Component{
+  render(){
+    const NavigatorTab = createAppContainer(
+      createBottomTabNavigator({
+        Login: {screen: LoginView},
+        Create: {screen: CreateAccountView},
+        Forgot: {screen: CreateNewPasswardView},
+        Mail: {screen: SendEmailView},
+        main: createBottomTabNavigator({
+          Friend: {screen: FriendScreenView},
+          Location:{screen: LocationInfoScreenView},
+          Map:{screen: HomeScreenView},
+        })
+      })
     );
+
+    return(
+      <NavigatorTab/>
+    )
   }
 }
 
-class FriendListScreen extends React.Component {
-  render() {
-    return (
-        <FriendListView/>
-    );
-  }
-}
+// //Tabs
+// class HomeScreen extends React.Component {
+//   render() {
+//     return (
+//         <HomeScreenView/>
+//     );
+//   }
+// }
 
-class LocationInfoScreen extends React.Component {
-    render() {
-      return (
-          <LocationInfoView/>
-      );
-    }
-  }
+// class FriendListScreen extends React.Component {
+//   render() {
+//     return (
+//         <FriendListView/>
+//     );
+//   }
+// }
 
-const TabNavigator = createBottomTabNavigator(
-    {
-        Map: HomeScreen,
-        Friend: FriendListScreen,
-        Location:LocationInfoScreen,
-    },
-    {
-        initialRouteName:'Friend',
-        defaultNavigationOptions:({navigation}) => ({
-            tabBarIcon:()=> {
-                const { routeName } = navigation.state;
-                let IconComponent = Ionicons;
-                let iconName;
-                if(routeName === 'Map'){
-                    iconName = 'md-map';
-                }
-                else if(routeName === 'Friend'){
-                    iconName = 'ios-star';
-                }
-                else if(routeName === 'Location'){
-                    iconName = 'place';
-                    IconComponent = MaterialIcons;
-                }
+// class LocationInfoScreen extends React.Component {
+//     render() {
+//       return (
+//         <LocationInfoView/>
+//       );
+//     }
+//   }
+// //////////////////////////////////////////////////////////////
 
-                return <IconComponent name={iconName} size={25}/>
-            },
-        }),
-        // tabBarOptions:{
-        //   style={
-        //     backgroundColor:colors.ButtonYellow,
-        //   }
-        // }
-    }
-);
+// //Initial Pages
+// class LoginScreen extends React.Component{
+//   render(){
+//     return(
+//       <LoginView/>
+//     );
+//   }
+// }
 
-export default createAppContainer(TabNavigator);
+// class CreateAccountScreen extends React.Component{
+//   render(){
+//     return(
+//       <CreateAccountView/>
+//     );
+//   }
+// }
+
+// class CreateNewPasswardScreen extends React.Component{
+//   render(){
+//     return(
+//       <CreateNewPasswardView/>
+//     );
+//   }
+// }
+
+// class SendEmailScreen extends React.Component{
+//   render(){
+//     return(
+//       <SendEmailView/>
+//     );
+//   }
+// }
+// ///////////////////////////////////////////////////////////////
+
+// const TabNavigator = createBottomTabNavigator(
+//     {
+//         Map: HomeScreen,
+//         Friend: FriendListScreen,
+//         Location:LocationInfoScreen,
+//     },
+//     {
+//         initialRouteName:'Friend',
+//         defaultNavigationOptions:({navigation}) => ({
+//             tabBarIcon:()=> {
+//                 const { routeName } = navigation.state;
+//                 let IconComponent = Ionicons;
+//                 let iconName;
+//                 if(routeName === 'Map'){
+//                     iconName = 'md-map';
+//                 }
+//                 else if(routeName === 'Friend'){
+//                     iconName = 'ios-star';
+//                 }
+//                 else if(routeName === 'Location'){
+//                     iconName = 'place';
+//                     IconComponent = MaterialIcons;
+//                 }
+
+//                 return <IconComponent name={iconName} size={25}/>
+//             },
+//         }),
+//     }
+// );
+
+// export default createAppContainer(TabNavigator);

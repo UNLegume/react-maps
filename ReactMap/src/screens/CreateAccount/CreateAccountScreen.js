@@ -79,6 +79,7 @@ class CreateAccountScreenView extends React.Component{
                     }}
                     title='Back'
                     type="clear"
+                    onPress={() =>this.props.navigation.navigate('Login')}
                 />
             </View>
         );

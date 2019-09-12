@@ -47,6 +47,7 @@ class LoginScreenView extends React.Component{
                     borderRadius:6
                 }}
                 title="Login"
+                onPress={()=>this.props.navigation.navigate('Friend')}
             />
 
             {/* ForgotButton */}
@@ -60,7 +61,7 @@ class LoginScreenView extends React.Component{
             }}
             title='Create your acount?'
             type="clear"
-            onPress={() =>this.props.navigation.navigate('Details')}
+            onPress={() =>this.props.navigation.navigate('Create')}
             />
             <Button
             buttonStyle={{
@@ -72,6 +73,7 @@ class LoginScreenView extends React.Component{
             }}
             title='Forgot Password?'
             type='clear'
+            onPress={() =>this.props.navigation.navigate('Forgot')}
             />
         </View>
         );
