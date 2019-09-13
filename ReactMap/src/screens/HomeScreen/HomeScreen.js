@@ -261,6 +261,8 @@ var lon = 136.905862
 var latDelta = 0.0922
 var lonDelta = 0.0421
 
+var turnOffRegionChange = false
+
 var getCurrentLocation = () => {
   return new Promise((resolve, reject) => {
     navigator.geolocation.getCurrentPosition(
@@ -277,8 +279,8 @@ var getCurrentLocation = () => {
 class HomeScreenView extends React.Component {
     constructor(props) {
         super(props);
+        turnOffRegionChange = true;
         this.componentDidMount = this.componentDidMount.bind(this);
-        this.setInitialState = this.setInitialState.bind(this);
 
         this.state = {
           search: '',
@@ -310,34 +312,50 @@ class HomeScreenView extends React.Component {
     }
 
     obtain = (region) => {
-        console.log(region);
-    }
-
-    setInitialState = () => {
-      navigator.geolocation.getCurrentPosition(
-        pos => {
-          this.setState(() => {
-            return {
-              latitude: pos.coords.latitude,
-              longitude: pos.coords.longitude,
-              latitudeDelta: latDelta,
-              longitudeDelta: lonDelta,
-            }
-          })
-          resolve();
-        },
-        err => {
-          reject(err);
-        }
-      )
+      console.log(region)
     }
 
     onRegionChange = (region) => {
-        this.setState({});
-        console.log(region);
+      this.setState({region});
+      console.log(region);
+    }
+
+    returnMap() {
+      if(!turnOffRegionChange) {
+        return(
+          <MapView
+              provider={PROVIDER_GOOGLE}
+              customMapStyle={mapstyle}
+              style={s.map}
+              initialRegion={this.state.region}
+              showsUserLocation={true}
+              followUserLocation={true}
+              onRegionChange={this.onRegionChange}
+              onRegionChangeComplete={this.reloadEntities}
+          >
+              {this.state.markers.map((marker, index) => (
+                  <MapView.Marker
+                  key={index}
+                  coordinate={marker.latlng}
+                  latitudeDelta={marker.latitudeDelta}
+                  longitudeDelta={marker.longitudeDelta}
+                  />
+                ))
+              }
+
+              <View style={s.addLocationPosition}>
+                  <AddLocation
+                  obtain={this.obtain}
+                  region={this.state.region}
+                  />
+              </View>
+          </MapView>
+        )
+      }
     }
 
     componentDidMount() {
+      turnOffRegionChange = false;
       getCurrentLocation().then(pos => {
         if(pos) {
           this.setState({
@@ -390,33 +408,7 @@ class HomeScreenView extends React.Component {
                     value={this.state.search}
                     round
                 />
-                <MapView
-                    provider={PROVIDER_GOOGLE}
-                    customMapStyle={mapstyle}
-                    style={s.map}
-                    initialRegion={this.state.region}
-                    region={this.state.region}
-                    showsUserLocation={true}
-                    followUserLocation={true}
-                    onRegionChange={this.onRegionChange}
-                    onRegionChangeComplete={this.reloadEntities}
-                >
-                    {this.state.markers.map((marker, index) => (
-                        <MapView.Marker
-                        key={index}
-                        coordinate={marker.latlng}
-                        latitudeDelta={marker.latitudeDelta}
-                        longitudeDelta={marker.longitudeDelta}
-                        />
-                    ))}
-
-                    <View style={s.addLocationPosition}>
-                        <AddLocation
-                        obtain={this.obtain}
-                        region={this.state.region}
-                        />
-                    </View>
-                </MapView>
+                { this.returnMap() }
             </View>
         );
     }
