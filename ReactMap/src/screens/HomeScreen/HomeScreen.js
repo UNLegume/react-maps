@@ -255,42 +255,58 @@ mapstyle = [
       ]
     }
     ]
+
+var lat = 36.983732
+var lon = 136.905862
+var latDelta = 0.0922
+var lonDelta = 0.0421
+
+var getCurrentLocation = () => {
+  return new Promise((resolve, reject) => {
+    navigator.geolocation.getCurrentPosition(
+      pos => {
+        resolve(pos)
+      },
+      err => {
+        reject(err)
+      }
+    )
+  })
+}
+
 class HomeScreenView extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            search: '',
-            latitude: 35.983732,
-            longitude: 137.905862,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
-            markers: [
-                {
-                    latlng: {
-                        latitude: 34.983732,
-                        longitude: 136.905862,
-                    },
-                    latitudeDelta: 0.0922,
-                    longitudeDelta: 0.0421
-                },
-                {
-                    latlng: {
-                        latitude: 35.983732,
-                        longitude: 137.905862,
-                    },
-                    latitudeDelta: 0.0922,
-                    longitudeDelta: 0.0421
-                }
-            ],
-            region: {
-                latitude: 34.983732,
-                longitude: 136.905862,
-                latitudeDelta: 0.0922,
-                longitudeDelta: 0.0421,
-            }
-        }
-
+        this.componentDidMount = this.componentDidMount.bind(this);
         this.setInitialState = this.setInitialState.bind(this);
+
+        this.state = {
+          search: '',
+          markers: [
+              {
+                  latlng: {
+                      latitude: 34.983732,
+                      longitude: 136.905862,
+                  },
+                  latitudeDelta: 0.0922,
+                  longitudeDelta: 0.0421
+              },
+              {
+                  latlng: {
+                      latitude: 35.983732,
+                      longitude: 137.905862,
+                  },
+                  latitudeDelta: 0.0922,
+                  longitudeDelta: 0.0421
+              }
+          ],
+          region: {
+              latitude: lat,
+              longitude: lon,
+              latitudeDelta: 0.0922,
+              longitudeDelta: 0.0421,
+          }
+        }
     }
 
     obtain = (region) => {
@@ -298,38 +314,45 @@ class HomeScreenView extends React.Component {
     }
 
     setInitialState = () => {
-        navigator.geolocation.getCurrentPosition(
-            pos => {
-              this.setState(() => {
-                console.log('lat:'+pos.coords.latitude)
-                return {
-                  latitude: pos.coords.latitude,
-                  longitude: pos.coords.longitude,
-                  latitudeDelta: 0.0922,
-                  longitudeDelta: 0.0421,
-                }
-              })
-              //console.log(this.state.latitude)
-            },
-            err => console.log(err)
-        )
+      navigator.geolocation.getCurrentPosition(
+        pos => {
+          this.setState(() => {
+            return {
+              latitude: pos.coords.latitude,
+              longitude: pos.coords.longitude,
+              latitudeDelta: latDelta,
+              longitudeDelta: lonDelta,
+            }
+          })
+          resolve();
+        },
+        err => {
+          reject(err);
+        }
+      )
     }
 
     onRegionChange = (region) => {
-        this.setState({ region });
+        this.setState({});
         console.log(region);
     }
 
-    componentDidUpdate() {
-      this.setInitialState();
+    componentDidMount() {
+      getCurrentLocation().then(pos => {
+        if(pos) {
+          this.setState({
+            region: {
+              latitude: pos.coords.latitude,
+              longitude: pos.coords.longitude,
+              latitudeDelta: latDelta,
+              longitudeDelta: lonDelta,
+            }
+          })
+        }
+      })
     }
 
     render() {
-        //console.log(this.state.latitude)
-        //console.log(typeof this.state.latitude)
-        // const { search } = this.state.search;
-        // const { userName } = this.state.userName;
-
         return(
             <View style={s.container}>
                 <View
@@ -371,13 +394,12 @@ class HomeScreenView extends React.Component {
                     provider={PROVIDER_GOOGLE}
                     customMapStyle={mapstyle}
                     style={s.map}
-                    initialRegion={{
-                      latitude: this.state.latitude,
-                      longitude: this.state.longitude,
-                      latitudeDelta: 0.0092,
-                      longitudeDelta: 0.0042,
-                    }}
+                    initialRegion={this.state.region}
+                    region={this.state.region}
+                    showsUserLocation={true}
+                    followUserLocation={true}
                     onRegionChange={this.onRegionChange}
+                    onRegionChangeComplete={this.reloadEntities}
                 >
                     {this.state.markers.map((marker, index) => (
                         <MapView.Marker

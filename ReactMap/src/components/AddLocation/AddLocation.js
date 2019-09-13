@@ -22,6 +22,7 @@ const AddLocation = ({
             }
             onPress={() => {
                 obtain(region.latitude);
+                obtain(region.longitude);
                 console.log('buttoooooooon');
             }}
             >
