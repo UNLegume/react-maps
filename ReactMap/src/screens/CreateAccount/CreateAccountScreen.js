@@ -1,26 +1,71 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import { Button, Avatar, Card, Input, CheckBox} from 'react-native-elements';
+import axios from 'axios';
 import s from './styles';
 import { colors } from '../../styles';
 
 class CreateAccountScreenView extends React.Component{
-    state = {
-        checked:false,
+    constructor(props){
+        super(props);
+        this.state = {
+            checked:false,
+            UserName:'',
+            Email:'',
+            Pass:'',
+            Comfirm:'',
+        };
     };
 
-    Accept = ( checked ) => {
+    Accept = () => {
         this.setState(prevState => {
         return { checked: !prevState.checked }
         })
     };
+
+    UserName = (text) =>{
+        this.setState({UserName: text});
+    };
+
+    Email = (text) =>{
+        this.setState({Email: text});
+    }
+
+    Pass = (text) =>{
+        this.setState({Pass:text});
+    }
+
+    Comfirm = (text) =>{
+        this.setState({Comfirm:text});
+    }
+
+    UserInfo = () =>{
+        let params = new URLSearchParams();
+        params.append('name',this.UserName);
+        params.append('email',this.Email);
+        params.append('password',this.Pass);
+        console.log('append');
+
+        axios
+            .post('https://thawing-earth-80470.herokuapp.com/users',{
+                name:this.UserName,
+                email:this.Email,
+                password:this.Pass,
+            })
+            .then(function(response){
+                console.log('a');
+            })
+            .catch(function(error){
+                console.log(error);
+            });
+    }
 
     render(){
         return(
             <View style={s.container}>
                 <Avatar
                     containerStyle={{
-                        marginBottom:30,
+                        marginBottom:20,
                     }}
                     size='large'
                     title='User'
@@ -31,20 +76,30 @@ class CreateAccountScreenView extends React.Component{
                 <Card
                     containerStyle={{
                         width:300,
-                        height:260,
+                        height:340,
                         borderRadius:6,
                         borderColor:colors.Divinder,
                     }}
                 >
                     <Input
-                        placeholder='UserName'
+                        placeholder='User Name'
+                        onChangeText={(text)=>this.UserName(text)}
+                        inputStyle={{marginTop:20}}
+                    />
+
+                    <Input
+                        placeholder='Email'
+                        onChangeText={(text)=>this.Email(text)}
+                        inputStyle={{marginTop:20}}
                     />
                     <Input
-                        placeholder='PassWord'
+                        placeholder='Password'
+                        onChangeText={(text)=>this.Pass(text)}
                         inputStyle={{marginTop:20}}
                     />
                     <Input
                         placeholder='Comfirm'
+                        onChangeText={(text)=>this.Comfirm(text)}
                         inputStyle={{marginTop:20}}
                     />
                     <CheckBox
@@ -68,6 +123,7 @@ class CreateAccountScreenView extends React.Component{
                         borderRadius:6
                     }}
                     title="Create"
+                    onPress = {this.UserInfo}
                 />
                 <Button
                     buttonStyle={{
