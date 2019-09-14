@@ -9,7 +9,7 @@ class LocationInfoScreenView extends React.Component{
     render(){
         var Locationlist = [];
 
-        for(let i = 0; i<100; i++){
+        for(let i = 0; i<30; i++){
             Locationlist.push(
                 <ListItem
                 title={i}

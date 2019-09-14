@@ -9,7 +9,7 @@ class FriendListScreenView extends React.Component{
     render(){
         var friendlist = [];
 
-        for(let i = 0; i<100; i++){
+        for(let i = 0; i<30; i++){
             friendlist.push(
                 <ListItem
                 key={i}
@@ -59,8 +59,10 @@ class FriendListScreenView extends React.Component{
                     <Text style={{fontSize:18,color:'#fff',marginTop:5,}}>Recommend</Text>
                 </View>
                 <View style={{ marginTop:-1 }}>
-                    <ScrollView>
-                    { friendlist }
+                    <ScrollView style={{
+
+                    }}>
+                        { friendlist }
                     </ScrollView>
                 </View>
             </View>

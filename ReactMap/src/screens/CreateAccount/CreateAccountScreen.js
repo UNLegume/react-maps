@@ -84,7 +84,6 @@ class CreateAccountScreenView extends React.Component{
                     <Input
                         placeholder='User Name'
                         onChangeText={(text)=>this.UserName(text)}
-                        inputStyle={{marginTop:20}}
                     />
 
                     <Input
