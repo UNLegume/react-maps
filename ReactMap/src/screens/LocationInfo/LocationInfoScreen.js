@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text} from 'react-native';
+import { View, Text, ScrollView} from 'react-native';
 import {Ionicons} from '@expo/vector-icons';
 import { Button, Input, Card, ListItem ,SearchBar, Divider } from 'react-native-elements';
 import s from './styles';
@@ -9,10 +9,11 @@ class LocationInfoScreenView extends React.Component{
     render(){
         var Locationlist = [];
 
-        for(let i = 0; i<10; i++){
+        for(let i = 0; i<100; i++){
             Locationlist.push(
                 <ListItem
-                title='aaaa'
+                title={i}
+                key={i}
                     containerStyle={{
                         backgroundColor:'#FFF',
                     }}
@@ -53,7 +54,9 @@ class LocationInfoScreenView extends React.Component{
                 borderTopRightRadius:20,
                 }}>
                 <View style={{ marginTop:70 }}>
+                    <ScrollView>
                     { Locationlist }
+                    </ScrollView>
                 </View>
             </View>
         </View>

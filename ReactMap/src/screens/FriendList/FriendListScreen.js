@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text} from 'react-native';
+import { View, Text, ScrollView} from 'react-native';
 import {Ionicons} from '@expo/vector-icons';
 import { Button, Input, Card, SearchBar, ListItem, Divider} from 'react-native-elements';
 import s from './styles';
@@ -9,11 +9,12 @@ class FriendListScreenView extends React.Component{
     render(){
         var friendlist = [];
 
-        for(let i = 0; i<10; i++){
+        for(let i = 0; i<100; i++){
             friendlist.push(
                 <ListItem
                 key={i}
-                title='aaaa'
+                title={i}
+                subtitle='Recommend'
                     containerStyle={{
                         backgroundColor:'#FFF',
                     }}
@@ -58,7 +59,9 @@ class FriendListScreenView extends React.Component{
                     <Text style={{fontSize:18,color:'#fff',marginTop:5,}}>Recommend</Text>
                 </View>
                 <View style={{ marginTop:-1 }}>
+                    <ScrollView>
                     { friendlist }
+                    </ScrollView>
                 </View>
             </View>
         </View>
