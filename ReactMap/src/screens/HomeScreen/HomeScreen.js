@@ -262,6 +262,7 @@ var latDelta = 0.0922
 var lonDelta = 0.0421
 
 var turnOffRegionChange = false
+var showButtonVar = false
 
 var getCurrentLocation = () => {
   return new Promise((resolve, reject) => {
@@ -311,6 +312,17 @@ class HomeScreenView extends React.Component {
         }
     }
 
+    showButton = () => {
+      if(showButtonVar) {
+        return(
+          <AddLocation
+            obtain={this.obtain}
+            region={this.state.region}
+          />
+        )
+      }
+    }
+
     obtain = (region) => {
       console.log(region)
     }
@@ -344,14 +356,15 @@ class HomeScreenView extends React.Component {
               }
 
               <View style={s.addLocationPosition}>
-                  <AddLocation
-                  obtain={this.obtain}
-                  region={this.state.region}
-                  />
+                { this.showButton() }
               </View>
           </MapView>
         )
       }
+    }
+
+    componentDidUpdate() {
+      showButtonVar = true;
     }
 
     componentDidMount() {
