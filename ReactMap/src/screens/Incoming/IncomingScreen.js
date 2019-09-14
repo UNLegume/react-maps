@@ -5,16 +5,16 @@ import { Button, Input, Card, SearchBar, ListItem, Divider} from 'react-native-e
 import s from './styles';
 import { colors } from '../../styles';
 
-class FriendListScreenView extends React.Component{
+class IncomingScreenView extends React.Component{
     render(){
-        var friendlist = [];
+        var Incoming = [];
 
         for(let i = 0; i<30; i++){
-            friendlist.push(
+            Incoming.push(
                 <ListItem
                 key={i}
                 title={i}
-                subtitle='Recommend'
+                subtitle='Incoming'
                     containerStyle={{
                         backgroundColor:'#FFF',
                     }}
@@ -32,7 +32,7 @@ class FriendListScreenView extends React.Component{
                  marginBottom:5,
                  color:'#FFF',
              }}
-            >Friend List</Text>
+            >Incoming</Text>
             <SearchBar
              containerStyle={{
                 backgroundColor:colors.BgColor,
@@ -55,14 +55,13 @@ class FriendListScreenView extends React.Component{
                 borderTopRightRadius:20,
                 }}>
                 <View style={{marginVertical:5,marginLeft:30,}}>
-                    <Text style={{fontSize:24,color:'#fff'}}>Koyanagi</Text>
-                    <Text style={{fontSize:18,color:'#fff',marginTop:5,}}>Recommend</Text>
+                    <Text style={{fontSize:24,color:'#fff',marginVertical:15}}>Add Friend</Text>
                 </View>
                 <View style={{ marginTop:-1 }}>
                     <ScrollView style={{
 
                     }}>
-                        { friendlist }
+                        { Incoming }
                     </ScrollView>
                 </View>
             </View>
@@ -71,4 +70,4 @@ class FriendListScreenView extends React.Component{
     }
 }
 
-export default FriendListScreenView;
+export default IncomingScreenView;
