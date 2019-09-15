@@ -4,6 +4,7 @@ import { Button } from 'react-native-elements';
 import { Entypo } from '@expo/vector-icons';
 import { colors } from '../../styles';
 import { Animated } from 'react-native';
+import axios from 'axios';
 
 const buttonRadius = 60
 const rectHeight = 170
@@ -18,6 +19,7 @@ class AddLocation extends React.Component {
     animatedHeight = new Animated.Value(60)
     animatedWidth = new Animated.Value(60)
     animatedBorderRadius = new Animated.Value(30)
+    textInputHeight = new Animated.Value(0)
 
     buttonDisplay = "block";
     closeBtnDisplay = "none"
@@ -40,6 +42,13 @@ class AddLocation extends React.Component {
         Animated.timing(
             this.animatedBorderRadius, {
                 toValue: 3,
+                duration: duration
+            }
+        ).start()
+
+        Animated.timing(
+            this.textInputHeight, {
+                toValue: 40,
                 duration: duration
             }
         ).start()
@@ -72,6 +81,13 @@ class AddLocation extends React.Component {
             }
         ).start()
 
+        Animated.timing(
+            this.textInputHeight, {
+                toValue: 0,
+                duration: duration
+            }
+        ).start()
+
         this.closeBtnDisplay = "none";
         this.buttonDisplay = "block";
 
@@ -79,6 +95,23 @@ class AddLocation extends React.Component {
     }
 
     post() {
+        let url = 'https://thawing-earth-80470.herokuapp.com/locations';
+
+        let params = new URLSearchParams();
+        params.append('longitude', 0.0)
+        params.append('latitude', 0.0)
+        params.append('place', 'tokyo')
+        params.append('userid', 0)
+
+        axios.post(url, params, {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        })
+        .then((res) => {
+            console.log('received');
+        })
+        .catch((err) => {
+            console.log(err)
+        })
 
     }
 
@@ -120,11 +153,13 @@ class AddLocation extends React.Component {
 
                 <View
                 style={{
-                    display: this.closeBtnDisplay
+                    display: this.closeBtnDisplay,
+                    width: "100%",
                 }}>
                     <TextInput
                     style={{
                         height: 40,
+                        width: "100%",
                         borderColor: "#000",
                         borderWidth: 1,
                         fontSize: 30,
