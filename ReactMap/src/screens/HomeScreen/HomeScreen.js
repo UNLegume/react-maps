@@ -309,7 +309,6 @@ class HomeScreenView extends React.Component {
               latitudeDelta: 0.0922,
               longitudeDelta: 0.0421,
           },
-          placeName: ''
         }
     }
 
@@ -325,9 +324,6 @@ class HomeScreenView extends React.Component {
       }
     }
 
-    storePlaceName = (name) => {
-      this.setState({placeName: name});
-    }
 
     obtain = (region) => {
       console.log(region)
