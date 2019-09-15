@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, TextInput } from 'react-native';
 import { Button } from 'react-native-elements';
 import { Entypo } from '@expo/vector-icons';
 import { colors } from '../../styles';
@@ -78,6 +78,10 @@ class AddLocation extends React.Component {
         this.forceUpdate();
     }
 
+    post() {
+
+    }
+
     render() {
         return (
             <Animated.View style={{
@@ -88,7 +92,9 @@ class AddLocation extends React.Component {
                 borderRadius: this.animatedBorderRadius,
             }}>
                 <View style={{
-                    display: this.closeBtnDisplay
+                    display: this.closeBtnDisplay,
+                    width: 50,
+                    height: 50
                 }}>
                     <Button
                     buttonStyle={{
@@ -111,7 +117,35 @@ class AddLocation extends React.Component {
                     }>
                     </Button>
                 </View>
-                <View style={{
+
+                <View
+                style={{
+                    display: this.closeBtnDisplay
+                }}>
+                    <TextInput
+                    style={{
+                        height: 40,
+                        borderColor: "#000",
+                        borderWidth: 1,
+                        fontSize: 30,
+                    }}
+                    />
+
+                    <Button
+                    buttonStyle={{
+                        width: 60,
+                        height: 60,
+                        backgroundColor: 'black'
+                    }}
+
+                    onPress={() => {
+                        this.post();
+                    }}
+                    />
+                </View>
+
+                <View
+                style={{
                     display: this.buttonDisplay
                 }}>
                     <Button
