@@ -16,8 +16,9 @@ class AddLocation extends React.Component {
     animatedBorderRadius = new Animated.Value(30)
 
     buttonDisplay = "block";
+    closeBtnDisplay = "none"
 
-    onPress = () => {
+    buttonOnPress = () => {
         Animated.timing(
             this.animatedHeight, {
                 toValue: 170,
@@ -40,6 +41,35 @@ class AddLocation extends React.Component {
         ).start()
 
         this.buttonDisplay = "none";
+        this.closeBtnDisplay = "block";
+
+        this.forceUpdate();
+    }
+
+    closeOnPress = () => {
+        Animated.timing(
+            this.animatedHeight, {
+                toValue: 60,
+                duration: 300
+            }
+        ).start()
+
+        Animated.timing(
+            this.animatedWidth, {
+                toValue: 60,
+                duration: 300
+            }
+        ).start()
+
+        Animated.timing(
+            this.animatedBorderRadius, {
+                toValue: 30,
+                duration: 300
+            }
+        ).start()
+
+        this.closeBtnDisplay = "none";
+        this.buttonDisplay = "block";
 
         this.forceUpdate();
     }
@@ -53,6 +83,30 @@ class AddLocation extends React.Component {
                 backgroundColor: "#FFFFFF",
                 borderRadius: this.animatedBorderRadius,
             }}>
+                <View style={{
+                    display: this.closeBtnDisplay
+                }}>
+                    <Button
+                    buttonStyle={{
+                        width: 50,
+                        height: 50,
+                        alignItems: "center",
+                        justifyContent: "center",
+                        backgroundColor: "rgba(0, 0, 0, 0)"
+                    }}
+                    icon={
+                        <Entypo
+                        name="cross"
+                        size={30}
+                        color="#000"
+                        />
+                    }
+                    onPress={() => {
+                        this.closeOnPress();
+                    }
+                    }>
+                    </Button>
+                </View>
                 <View style={{
                     display: this.buttonDisplay
                 }}>
@@ -73,7 +127,7 @@ class AddLocation extends React.Component {
                         />
                     }
                     onPress={() => {
-                        this.onPress();
+                        this.buttonOnPress();
                         this.props.obtain(this.props.region.latitude);
                         this.props.obtain(this.props.region.longitude);
                         console.log('buttoooooooon');
