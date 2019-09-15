@@ -1,19 +1,20 @@
 import React from 'react';
 import { View, Text, ScrollView} from 'react-native';
 import {Ionicons} from '@expo/vector-icons';
-import { Button, Input, Card, ListItem ,SearchBar, Divider } from 'react-native-elements';
+import { Button, Input, Card, SearchBar, ListItem, Divider} from 'react-native-elements';
 import s from './styles';
 import { colors } from '../../styles';
 
-class LocationInfoScreenView extends React.Component{
+class IncomingScreenView extends React.Component{
     render(){
-        var Locationlist = [];
+        var Incoming = [];
 
         for(let i = 0; i<30; i++){
-            Locationlist.push(
+            Incoming.push(
                 <ListItem
-                title={i}
                 key={i}
+                title={i}
+                subtitle='Incoming'
                     containerStyle={{
                         backgroundColor:'#FFF',
                     }}
@@ -31,7 +32,7 @@ class LocationInfoScreenView extends React.Component{
                  marginBottom:5,
                  color:'#FFF',
              }}
-            >Location</Text>
+            >Incoming</Text>
             <SearchBar
              containerStyle={{
                 backgroundColor:colors.BgColor,
@@ -53,9 +54,14 @@ class LocationInfoScreenView extends React.Component{
                 borderTopLeftRadius:20,
                 borderTopRightRadius:20,
                 }}>
-                <View style={{ marginTop:70 }}>
-                    <ScrollView>
-                    { Locationlist }
+                <View style={{marginVertical:5,marginLeft:30,}}>
+                    <Text style={{fontSize:24,color:'#fff',marginVertical:15}}>Add Friend</Text>
+                </View>
+                <View style={{ marginTop:-1 }}>
+                    <ScrollView style={{
+
+                    }}>
+                        { Incoming }
                     </ScrollView>
                 </View>
             </View>
@@ -64,5 +70,4 @@ class LocationInfoScreenView extends React.Component{
     }
 }
 
-
-export default LocationInfoScreenView;
+export default IncomingScreenView;

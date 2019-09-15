@@ -43,6 +43,18 @@ class CreateNewPasswardScreenView extends React.Component{
                 }}
                 title="Create"
             />
+            <Button
+                buttonStyle={{
+                    marginLeft:260,
+                    marginTop:10,
+                }}
+                titleStyle={{
+                    color:colors.SubTextW,
+                }}
+                title='Back'
+                type="clear"
+                onPress={() =>this.props.navigation.navigate('Login')}
+            />
         </View>
         );
     }
