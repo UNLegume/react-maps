@@ -14,12 +14,15 @@ const duration = 300
 class AddLocation extends React.Component {
     constructor(props){
         super(props);
+        this.state = {
+            placeName: ''
+        }
     }
 
     animatedHeight = new Animated.Value(60)
     animatedWidth = new Animated.Value(60)
     animatedBorderRadius = new Animated.Value(30)
-    textInputHeight = new Animated.Value(0)
+    textInputHeight = new Animated.Value(1)
 
     buttonDisplay = "block";
     closeBtnDisplay = "none"
@@ -81,13 +84,6 @@ class AddLocation extends React.Component {
             }
         ).start()
 
-        Animated.timing(
-            this.textInputHeight, {
-                toValue: 0,
-                duration: duration
-            }
-        ).start()
-
         this.closeBtnDisplay = "none";
         this.buttonDisplay = "block";
 
@@ -98,9 +94,9 @@ class AddLocation extends React.Component {
         let url = 'https://thawing-earth-80470.herokuapp.com/locations';
 
         let params = new URLSearchParams();
-        params.append('longitude', 0.0)
-        params.append('latitude', 0.0)
-        params.append('place', 'tokyo')
+        params.append('longitude', this.props.region.longitude)
+        params.append('latitude', this.props.region.latitude)
+        params.append('place', this.state.placeName)
         params.append('userid', 0)
 
         axios.post(url, params, {
@@ -163,6 +159,9 @@ class AddLocation extends React.Component {
                         borderColor: "#000",
                         borderWidth: 1,
                         fontSize: 30,
+                    }}
+                    onChangeText={(text) => {
+                        this.state.placeName = text
                     }}
                     />
 
