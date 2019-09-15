@@ -1,10 +1,14 @@
 import React from 'react';
 import { View } from 'react-native';
-import s from './styles';
 import { Button } from 'react-native-elements';
 import { Entypo } from '@expo/vector-icons';
 import { colors } from '../../styles';
 import { Animated } from 'react-native';
+
+const buttonRadius = 60
+const rectHeight = 170
+const rectWidth = 380
+const duration = 300
 
 class AddLocation extends React.Component {
     constructor(props){
@@ -21,22 +25,22 @@ class AddLocation extends React.Component {
     buttonOnPress = () => {
         Animated.timing(
             this.animatedHeight, {
-                toValue: 170,
-                duration: 300
+                toValue: rectHeight,
+                duration: duration
             }
         ).start();
 
         Animated.timing(
             this.animatedWidth, {
-                toValue: 380,
-                duration: 300,
+                toValue: rectWidth,
+                duration: duration,
             }
         ).start()
 
         Animated.timing(
             this.animatedBorderRadius, {
                 toValue: 3,
-                duration: 300
+                duration: duration
             }
         ).start()
 
@@ -49,22 +53,22 @@ class AddLocation extends React.Component {
     closeOnPress = () => {
         Animated.timing(
             this.animatedHeight, {
-                toValue: 60,
-                duration: 300
+                toValue: buttonRadius,
+                duration: duration
             }
         ).start()
 
         Animated.timing(
             this.animatedWidth, {
-                toValue: 60,
-                duration: 300
+                toValue: buttonRadius,
+                duration: duration
             }
         ).start()
 
         Animated.timing(
             this.animatedBorderRadius, {
                 toValue: 30,
-                duration: 300
+                duration: duration
             }
         ).start()
 
