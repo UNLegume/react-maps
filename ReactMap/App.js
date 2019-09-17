@@ -28,7 +28,7 @@ export default class App extends React.Component{
     });
 
     const NavigatorTab = createAppContainer(
-      createSwitchNavigator({
+      createBottomTabNavigator({
         Login: {screen: LoginView},
         Create: {screen: CreateAccountView},
         Forgot: {screen: CreateNewPasswardView},
@@ -36,7 +36,7 @@ export default class App extends React.Component{
         main: {screen: MainTab},
       })
     );
-    
+
     return(
       <NavigatorTab/>
     )

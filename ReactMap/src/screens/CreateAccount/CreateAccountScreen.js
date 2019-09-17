@@ -41,23 +41,24 @@ class CreateAccountScreenView extends React.Component{
 
     UserInfo = () =>{
         let params = new URLSearchParams();
-        params.append('name',this.UserName);
-        params.append('email',this.Email);
-        params.append('password',this.Pass);
+        params.append('name',this.state.UserName);
+        params.append('email',this.state.Email);
+        params.append('password',this.state.Pass);
         console.log('append');
 
         axios
-            .post('https://thawing-earth-80470.herokuapp.com/users',{
-                name:this.UserName,
-                email:this.Email,
-                password:this.Pass,
-            })
-            .then(function(response){
-                console.log('a');
-            })
-            .catch(function(error){
-                console.log(error);
-            });
+        .post('https://thawing-earth-80470.herokuapp.com/users',params,
+        {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        })
+        .then(function(response){
+            console.log('a');
+        })
+        .catch(function(error){
+            console.log(error);
+        });
     }
 
     render(){

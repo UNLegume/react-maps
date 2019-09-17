@@ -24,28 +24,28 @@ class LocationInfoScreenView extends React.Component{
         return(
         <View style={s.container}>
             <Text
-             style={{
-                 fontSize:24,
-                 marginTop:40,
-                 marginLeft:20,
-                 marginBottom:5,
-                 color:'#FFF',
-             }}
+            style={{
+                fontSize:24,
+                marginTop:40,
+                marginLeft:20,
+                marginBottom:5,
+                color:'#FFF',
+            }}
             >Location</Text>
             <SearchBar
-             containerStyle={{
+            containerStyle={{
                 backgroundColor:colors.BgColor,
                 borderTopColor:'rgba(0,0,0,0)',
                 borderBottomColor:'rgba(0,0,0,0)',
                 marginTop:5,
-             }}
-             inputContainerStyle={{
+            }}
+            inputContainerStyle={{
                 marginHorizontal:5,
-             }}
-             placeholder="Search for"
+            }}
+            placeholder="Search for"
             //  onChangeText={this.updateSearch}
             //  value={search}
-             round
+            round
             />
             <View style={{
                 backgroundColor:colors.OnBgColor,

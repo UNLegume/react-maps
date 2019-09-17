@@ -4,6 +4,7 @@ import { Button } from 'react-native-elements';
 import { Entypo } from '@expo/vector-icons';
 import { colors } from '../../styles';
 import { Animated } from 'react-native';
+import axios from 'axios';
 
 const buttonRadius = 60
 const rectHeight = 170
@@ -13,11 +14,15 @@ const duration = 300
 class AddLocation extends React.Component {
     constructor(props){
         super(props);
+        this.state = {
+            placeName: ''
+        }
     }
 
     animatedHeight = new Animated.Value(60)
     animatedWidth = new Animated.Value(60)
     animatedBorderRadius = new Animated.Value(30)
+    textInputHeight = new Animated.Value(1)
 
     buttonDisplay = "block";
     closeBtnDisplay = "none"
@@ -40,6 +45,13 @@ class AddLocation extends React.Component {
         Animated.timing(
             this.animatedBorderRadius, {
                 toValue: 3,
+                duration: duration
+            }
+        ).start()
+
+        Animated.timing(
+            this.textInputHeight, {
+                toValue: 40,
                 duration: duration
             }
         ).start()
@@ -79,6 +91,23 @@ class AddLocation extends React.Component {
     }
 
     post() {
+        let url = 'https://thawing-earth-80470.herokuapp.com/locations';
+
+        let params = new URLSearchParams();
+        params.append('longitude', this.props.region.longitude)
+        params.append('latitude', this.props.region.latitude)
+        params.append('place', this.state.placeName)
+        params.append('userid', 0)
+
+        axios.post(url, params, {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        })
+        .then((res) => {
+            console.log('received');
+        })
+        .catch((err) => {
+            console.log(err)
+        })
 
     }
 
@@ -120,14 +149,19 @@ class AddLocation extends React.Component {
 
                 <View
                 style={{
-                    display: this.closeBtnDisplay
+                    display: this.closeBtnDisplay,
+                    width: "100%",
                 }}>
                     <TextInput
                     style={{
                         height: 40,
+                        width: "100%",
                         borderColor: "#000",
                         borderWidth: 1,
                         fontSize: 30,
+                    }}
+                    onChangeText={(text) => {
+                        this.state.placeName = text
                     }}
                     />
 

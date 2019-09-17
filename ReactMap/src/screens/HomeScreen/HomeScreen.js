@@ -308,7 +308,7 @@ class HomeScreenView extends React.Component {
               longitude: lon,
               latitudeDelta: 0.0922,
               longitudeDelta: 0.0421,
-          }
+          },
         }
     }
 
@@ -318,10 +318,12 @@ class HomeScreenView extends React.Component {
           <AddLocation
             obtain={this.obtain}
             region={this.state.region}
+            placeName={this.state.placeName}
           />
         )
       }
     }
+
 
     obtain = (region) => {
       console.log(region)
@@ -413,8 +415,8 @@ class HomeScreenView extends React.Component {
                 </View>
                 <SearchBar
                     containerStyle={{
-                        backgroundColor:colors.BGColor,
-                        borderColor:colors.BGColor,
+                        backgroundColor: colors.BGColor,
+                        borderColor: colors.BGColor,
                     }}
                     placeholder="Search for"
                     onChangeText={this.updateSearch}
