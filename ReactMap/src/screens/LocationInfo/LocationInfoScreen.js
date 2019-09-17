@@ -1,13 +1,36 @@
 import React from 'react';
 import { View, Text, ScrollView, SafeAreaView} from 'react-native';
+import  axios  from 'axios';
 import {Ionicons} from '@expo/vector-icons';
 import { Button, Input, Card, ListItem ,SearchBar, Divider } from 'react-native-elements';
 import s from './styles';
 import { colors } from '../../styles';
 
 class LocationInfoScreenView extends React.Component{
+    state = {
+        inputText: '',
+    }
+
+    onChangeText(text){
+        axios
+            .get('https://thawing-earth-80470.herokuapp.com/users',{params:{name:text}})
+            .then(
+                response => {
+                    console.log(response);
+                }
+            )
+            .catch(
+                error => {
+                    console.log(error);
+                }
+            );
+            this.setState({inputText:text})    
+    }
+
     render(){
+        const { inputText } = this.state;
         var Locationlist = [];
+
 
         for(let i = 0; i<30; i++){
             Locationlist.push(
@@ -17,7 +40,7 @@ class LocationInfoScreenView extends React.Component{
                     containerStyle={{
                         backgroundColor:'#FFF',
                     }}
-                bottomDivider='true'
+                bottomDivider
                 />
             );
         }
@@ -43,8 +66,8 @@ class LocationInfoScreenView extends React.Component{
                 marginHorizontal:5,
             }}
             placeholder="Search for"
-            //  onChangeText={this.updateSearch}
-            //  value={search}
+            onChangeText={ text => this.onChangeText(text)}
+            value={inputText}
             round
             />
             <View style={{

@@ -1,5 +1,5 @@
 import React from 'react';
-import { createAppContainer, createSwitchNavigator } from 'react-navigation';
+import { createAppContainer, createSwitchNavigator, } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { Ionicons, MaterialIcons} from '@expo/vector-icons';
 
@@ -28,7 +28,7 @@ export default class App extends React.Component{
     });
 
     const NavigatorTab = createAppContainer(
-      createBottomTabNavigator({
+      createSwitchNavigator({
         Login: {screen: LoginView},
         Create: {screen: CreateAccountView},
         Forgot: {screen: CreateNewPasswardView},
@@ -36,7 +36,7 @@ export default class App extends React.Component{
         main: {screen: MainTab},
       })
     );
-
+    
     return(
       <NavigatorTab/>
     )
