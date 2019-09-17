@@ -34,19 +34,19 @@ class FriendListScreenView extends React.Component{
              }}
             >Friend List</Text>
             <SearchBar
-             containerStyle={{
+            containerStyle={{
                 backgroundColor:colors.BgColor,
                 borderTopColor:'rgba(0,0,0,0)',
                 borderBottomColor:'rgba(0,0,0,0)',
                 marginTop:5,
-             }}
-             inputContainerStyle={{
+            }}
+            inputContainerStyle={{
                 marginHorizontal:5,
-             }}
-             placeholder="Search for"
+            }}
+            placeholder="Search for"
             //  onChangeText={this.updateSearch}
             //  value={search}
-             round
+            round
             />
             <View style={{
                 backgroundColor:colors.OnBgColor,
