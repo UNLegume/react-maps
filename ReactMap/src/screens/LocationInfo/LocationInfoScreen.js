@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, ScrollView} from 'react-native';
+import { View, Text, ScrollView, SafeAreaView} from 'react-native';
 import {Ionicons} from '@expo/vector-icons';
 import { Button, Input, Card, ListItem ,SearchBar, Divider } from 'react-native-elements';
 import s from './styles';
@@ -52,10 +52,13 @@ class LocationInfoScreenView extends React.Component{
                 marginTop:10,
                 borderTopLeftRadius:20,
                 borderTopRightRadius:20,
+                flex:1
                 }}>
-                <View style={{ marginTop:70 }}>
+                <View style={{ marginTop:70,flex:1, }}>
                     <ScrollView>
-                    { Locationlist }
+                        <SafeAreaView>
+                            { Locationlist }
+                        </SafeAreaView>
                     </ScrollView>
                 </View>
             </View>

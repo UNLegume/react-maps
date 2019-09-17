@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, ScrollView} from 'react-native';
+import { View, Text, ScrollView, SafeAreaView} from 'react-native';
 import {Ionicons} from '@expo/vector-icons';
 import { Button, Input, Card, SearchBar, ListItem, Divider} from 'react-native-elements';
 import s from './styles';
@@ -18,7 +18,7 @@ class IncomingScreenView extends React.Component{
                     containerStyle={{
                         backgroundColor:'#FFF',
                     }}
-                bottomDivider='true'
+                bottomDivider
                 />
             );
         }
@@ -53,15 +53,18 @@ class IncomingScreenView extends React.Component{
                 marginTop:10,
                 borderTopLeftRadius:20,
                 borderTopRightRadius:20,
+                flex:1
                 }}>
                 <View style={{marginVertical:5,marginLeft:30,}}>
                     <Text style={{fontSize:24,color:'#fff',marginVertical:15}}>Add Friend</Text>
                 </View>
-                <View style={{ marginTop:-1 }}>
+                <View style={{ marginTop:-1,flex:1 }}>
                     <ScrollView style={{
-
+                        flex:1
                     }}>
+                    <SafeAreaView style={{flex:1}}>
                         { Incoming }
+                    </SafeAreaView>
                     </ScrollView>
                 </View>
             </View>
