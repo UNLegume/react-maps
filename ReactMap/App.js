@@ -17,23 +17,23 @@ import { colors } from './src/styles';
 
 
 export default class App extends React.Component{
-  render(){
+  render() {
     const MainTab = createBottomTabNavigator({
+      Map:{screen: HomeScreenView},
       Friend: createBottomTabNavigator({
         friendList : {screen:FriendScreenView},
         incoming: {screen:IncomingScreenView}
       }),
-      Map:{screen: HomeScreenView},
       Location:{screen: LocationInfoScreenView},
     });
 
     const NavigatorTab = createAppContainer(
       createBottomTabNavigator({
+        main: {screen: MainTab},
         Login: {screen: LoginView},
         Create: {screen: CreateAccountView},
         Forgot: {screen: CreateNewPasswardView},
         Mail: {screen: SendEmailView},
-        main: {screen: MainTab},
       })
     );
 
