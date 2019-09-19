@@ -15,8 +15,13 @@ import SendEmailView from './src/screens/SendEmail';
 
 import { colors } from './src/styles';
 
+import { AsyncStorage } from 'react-native';
 
 export default class App extends React.Component{
+  constructor(props) {
+    super(props);
+  }
+
   render() {
     const MainTab = createBottomTabNavigator({
       Map:{screen: HomeScreenView},

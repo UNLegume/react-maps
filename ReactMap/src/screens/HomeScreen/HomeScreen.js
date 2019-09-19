@@ -345,7 +345,7 @@ class HomeScreenView extends React.Component {
               showsUserLocation={true}
               followUserLocation={true}
               onRegionChange={this.onRegionChange}
-              onRegionChangeComplete={this.reloadEntities}
+              //onRegionChangeComplete={this.reloadEntities}
           >
               {this.state.markers.map((marker, index) => (
                   <MapView.Marker

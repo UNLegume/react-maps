@@ -5,43 +5,46 @@ import axios from 'axios';
 import s from './styles';
 import { colors } from '../../styles';
 
+import { AsyncStorage } from 'react-native';
+
 class LoginScreenView extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            UserName:'',
-            Pass:'',
+            email: '',
+            password: '',
         };
     };
 
-    UserName = (text) =>{
+    email = (text) =>{
         this.setState({UserName: text});
     };
 
-    Pass = (text) =>{
+    password = (text) =>{
         this.setState({Pass:text});
     }
 
-    Login = () =>{
+    login = () =>{
+        let params = new URLSearchParams();
+        params.append('user', {'email': this.state.email, 'password': this.state.password})
+
         axios
-            .get('https://thawing-earth-80470.herokuapp.com/users',{
-                params:{
-                    UserName:'aaa',
-                    Pass:'d;alkdjf;al',
-                }
-            })
-            .then(function(){
-                console.log('good');
-                ()=>this.props.navigation.navigate('Friend')
-            })
-            .catch(function(error){
-                console.log(error);
-            });
-            // .finally(function(){
-                
-            // });
+        .post('https://thawing-earth-80470.herokuapp.com/login', params,
+        {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(res => {
+            console.log(res.data)
+            AsyncStorage.setItem('auth_key', res.data);
+            ()=>this.props.navigation.navigate('Friend')
+        })
+        .catch(error => {
+            console.log(error);
+        });
     }
-    
+
     render(){
         return(
         <View style={s.container}>
@@ -64,12 +67,12 @@ class LoginScreenView extends React.Component{
             }}
             >
                 <Input
-                placeholder='UserName'
-                onChangeText={(text)=>this.UserName(text)}
+                placeholder='email'
+                onChangeText={(text)=>this.email(text)}
                 />
                 <Input
-                placeholder='PassWord'
-                onChangeText={(text)=>this.Pass(text)}
+                placeholder='password'
+                onChangeText={(text)=>this.password(text)}
                 inputStyle={{marginTop:20}}
                 />
             </Card>
@@ -86,7 +89,7 @@ class LoginScreenView extends React.Component{
                     borderRadius:6
                 }}
                 title="Login"
-                onPress={()=>this.props.navigation.navigate('Friend')}
+                onPress={this.login}
             />
 
             {/* ForgotButton */}
