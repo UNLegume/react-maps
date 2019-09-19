@@ -154,11 +154,15 @@ class AddLocation extends React.Component {
                 }}>
                     <TextInput
                     style={{
+                        position: "relative",
                         height: 40,
-                        width: "100%",
+                        width: "80%",
+                        left: "10%",
                         borderColor: "#000",
                         borderWidth: 1,
                         fontSize: 30,
+                        borderRadius: 15,
+                        textAlign: "center",
                     }}
                     onChangeText={(text) => {
                         this.state.placeName = text
@@ -167,10 +171,16 @@ class AddLocation extends React.Component {
 
                     <Button
                     buttonStyle={{
-                        width: 60,
-                        height: 60,
-                        backgroundColor: 'black'
+                        position: "absolute",
+                        width: 80,
+                        height: 40,
+                        top: 20,
+                        right: 20,
+                        backgroundColor: "#F8F753",
+                        borderRadius: 15
                     }}
+
+                    title="ADD"
 
                     onPress={() => {
                         this.post();

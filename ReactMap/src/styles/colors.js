@@ -18,7 +18,6 @@ const colors = {
     OnBgColor:'#261716',
     ButtonYellow:'#F8F753',
     None:'#e6e6e6',
-    
 };
 
 export default colors;
