@@ -24,12 +24,12 @@ export default class App extends React.Component{
 
   render() {
     const MainTab = createBottomTabNavigator({
-      Map:{screen: HomeScreenView},
+      Map: {screen: HomeScreenView},
       Friend: createBottomTabNavigator({
-        friendList : {screen:FriendScreenView},
-        incoming: {screen:IncomingScreenView}
+        friendList : {screen: FriendScreenView},
+        incoming: {screen: IncomingScreenView}
       }),
-      Location:{screen: LocationInfoScreenView},
+      Location: {screen: LocationInfoScreenView},
     });
 
     const NavigatorTab = createAppContainer(

@@ -8,7 +8,7 @@ import { colors } from '../../styles';
 import { AsyncStorage } from 'react-native';
 
 class LoginScreenView extends React.Component{
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             email: '',
@@ -16,28 +16,30 @@ class LoginScreenView extends React.Component{
         };
     };
 
-    email = (text) =>{
-        this.setState({UserName: text});
+    email = (text) => {
+        this.setState({email: text});
     };
 
-    password = (text) =>{
-        this.setState({Pass:text});
+    password = (text) => {
+        this.setState({password: text});
     }
 
-    login = () =>{
-        let params = new URLSearchParams();
-        params.append('user', {'email': this.state.email, 'password': this.state.password})
+    login = () => {
+        let url = 'https://thawing-earth-80470.herokuapp.com/login';
 
-        axios
-        .post('https://thawing-earth-80470.herokuapp.com/login', params,
+        let params = new URLSearchParams();
+        params.append('email', this.state.email)
+        params.append('password', this.state.password)
+
+        axios.post(url, params,
         {
-            headers: {
-                'Content-Type': 'application/json'
-            }
+            'Content-Type': 'application/json'
         })
         .then(res => {
             console.log(res.data)
-            AsyncStorage.setItem('auth_key', res.data);
+            AsyncStorage.setItem('access_token', res.data.access_token);
+            AsyncStorage.setItem('expires_in', res.data.expires_in);
+            AsyncStorage.setItem('refresh_token', res.data.refresh_token);
             ()=>this.props.navigation.navigate('Friend')
         })
         .catch(error => {
@@ -45,7 +47,7 @@ class LoginScreenView extends React.Component{
         });
     }
 
-    render(){
+    render() {
         return(
         <View style={s.container}>
             <Avatar
