@@ -5,47 +5,62 @@ import { Button, Input, Card, SearchBar, ListItem, Divider} from 'react-native-e
 import s from './styles';
 import { colors } from '../../styles';
 
-class FriendListScreenView extends React.Component{
-    render(){
+class FriendListScreenView extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            search: ''
+        }
+    }
+
+    searchFriends() {
+        console.log('search');
+    }
+
+    render() {
         var friendlist = [];
+        const {search} =this.state
 
         for(let i = 0; i<30; i++){
             friendlist.push(
                 <ListItem
                 key={i}
-                title={i}
-                subtitle='Recommend'
-                    containerStyle={{
-                        backgroundColor:'#FFF',
-                    }}
+                title={String(i)}
+                subtitle='Friend'
+                containerStyle={{
+                    backgroundColor:'#FFF',
+                }}
                 bottomDivider={true}
                 />
             );
         }
+
         return(
         <View style={s.container}>
             <Text
-             style={{
-                 fontSize:24,
-                 marginTop:40,
-                 marginLeft:20,
-                 marginBottom:5,
-                 color:'#FFF',
-             }}
+            style={{
+                fontSize:24,
+                marginTop:40,
+                marginLeft:20,
+                marginBottom:5,
+                color:'#FFF',
+            }}
             >Friend List</Text>
             <SearchBar
             containerStyle={{
-                backgroundColor:colors.BgColor,
-                borderTopColor:'rgba(0,0,0,0)',
-                borderBottomColor:'rgba(0,0,0,0)',
-                marginTop:5,
+                backgroundColor: colors.BgColor,
+                borderTopColor: 'rgba(0,0,0,0)',
+                borderBottomColor: 'rgba(0,0,0,0)',
+                marginTop: 5
             }}
             inputContainerStyle={{
                 marginHorizontal:5,
             }}
+            onSubmitEditing={this.searchFriends}
             placeholder="Search for"
-            //  onChangeText={this.updateSearch}
-            //  value={search}
+            value={search}
+            onChangeText={query => {this.setState({search: query})}}
             round
             />
             <View style={{
@@ -54,9 +69,9 @@ class FriendListScreenView extends React.Component{
                 borderTopLeftRadius:20,
                 borderTopRightRadius:20,
                 }}>
-                <View style={{marginVertical:5,marginLeft:30,}}>
-                    <Text style={{fontSize:24,color:'#fff'}}>Koyanagi</Text>
-                    <Text style={{fontSize:18,color:'#fff',marginTop:5,}}>Recommend</Text>
+                <View style={{marginVertical:12,marginLeft:30,}}>
+                    <Text style={{fontSize:32,color:'#fff'}}>Koyanagi</Text>
+                    {/* <Text style={{fontSize:18,color:'#fff',marginTop:5,}}>Recommend</Text> */}
                 </View>
                 <View style={{ marginTop:-1 }}>
                     <ScrollView style={{

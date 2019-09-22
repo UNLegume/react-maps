@@ -35,12 +35,18 @@ class LoginScreenView extends React.Component{
         {
             'Content-Type': 'application/json'
         })
-        .then(res => {
-            console.log(res.data)
-            AsyncStorage.setItem('access_token', res.data.access_token);
-            AsyncStorage.setItem('expires_in', res.data.expires_in);
-            AsyncStorage.setItem('refresh_token', res.data.refresh_token);
-            ()=>this.props.navigation.navigate('Friend')
+        .then(async res => {
+            console.log(res.data.data)
+            try {
+                console.log('debug:' + AsyncStorage.getItem('access_token'))
+            } catch(e) {
+
+            }
+            await AsyncStorage.setItem('access_token', res.data.data.access_token);
+            await AsyncStorage.setItem('refresh_token', res.data.data.refresh_token);
+            await AsyncStorage.setItem('expires_in', String(res.data.data.expires_in));
+            this.props.navigation.navigate('Friend')
+            console.log("moved to friend")
         })
         .catch(error => {
             console.log(error);
