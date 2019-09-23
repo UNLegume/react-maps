@@ -9,11 +9,11 @@ class CreateAccountScreenView extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            checked:false,
-            UserName:'',
-            Email:'',
-            Pass:'',
-            Comfirm:'',
+            checked: false,
+            UserName: '',
+            Email: '',
+            Pass: '',
+            Comfirm: '',
         };
     };
 
@@ -23,28 +23,27 @@ class CreateAccountScreenView extends React.Component{
         })
     };
 
-    UserName = (text) =>{
+    UserName = (text) => {
         this.setState({UserName: text});
     };
 
-    Email = (text) =>{
+    Email = (text) => {
         this.setState({Email: text});
     }
 
-    Pass = (text) =>{
+    Pass = (text) => {
         this.setState({Pass:text});
     }
 
-    Comfirm = (text) =>{
+    Comfirm = (text) => {
         this.setState({Comfirm:text});
     }
 
-    UserInfo = () =>{
+    signup = () => {
         let params = new URLSearchParams();
-        params.append('name',this.state.UserName);
-        params.append('email',this.state.Email);
-        params.append('password',this.state.Pass);
-        console.log('append');
+        params.append('name', this.state.UserName);
+        params.append('email', this.state.Email);
+        params.append('password', this.state.Pass);
 
         axios
         .post('https://thawing-earth-80470.herokuapp.com/users',params,
@@ -54,7 +53,8 @@ class CreateAccountScreenView extends React.Component{
             }
         })
         .then(function(response){
-            console.log('a');
+            console.log(response);
+            this.props.navigation.navigate('main')
         })
         .catch(function(error){
             console.log(error);
@@ -123,7 +123,7 @@ class CreateAccountScreenView extends React.Component{
                         borderRadius:6
                     }}
                     title="Create"
-                    onPress = {this.UserInfo}
+                    onPress = {this.signup}
                 />
                 <Button
                     buttonStyle={{

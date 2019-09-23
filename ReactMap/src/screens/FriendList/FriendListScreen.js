@@ -29,7 +29,8 @@ class FriendListScreenView extends React.Component {
             'Content-Type': 'application/json'
         })
         .then(res => {
-            console.log(res)
+            this.friendlist = res.data
+            console.log(this.friendlist);
         })
         .catch(e => {
             console.log(e);
