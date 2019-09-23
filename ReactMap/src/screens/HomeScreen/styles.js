@@ -29,6 +29,15 @@ const styles = StyleSheet.create({
         bottom: 20,
     },
 
+    centerMarker: {
+        position: 'absolute',
+        left: '49%',
+        top: '49%',
+        width: '2%',
+        height: '2%',
+        backgroundColor: colors.CenterMarker,
+    }
+
 });
 
 export default styles;

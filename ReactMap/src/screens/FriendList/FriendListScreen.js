@@ -4,6 +4,7 @@ import {Ionicons} from '@expo/vector-icons';
 import { Button, Input, Card, SearchBar, ListItem, Divider} from 'react-native-elements';
 import s from './styles';
 import { colors } from '../../styles';
+import axios from 'axios';
 
 class FriendListScreenView extends React.Component {
     constructor(props) {
@@ -12,18 +13,35 @@ class FriendListScreenView extends React.Component {
         this.state = {
             search: ''
         }
+
+        this.friendlist = [];
     }
 
-    searchFriends() {
-        console.log('search');
+    searchFriends = () => {
+        console.log('search: '+this.state.search);
+
+        let url = 'https://thawing-earth-80470.herokuapp.com/search';
+
+        let params = new URLSearchParams();
+        params.append('searchtmp', this.state.search);
+
+        axios.post(url, params, {
+            'Content-Type': 'application/json'
+        })
+        .then(res => {
+            console.log(res)
+        })
+        .catch(e => {
+            console.log(e);
+        })
     }
 
     render() {
-        var friendlist = [];
-        const {search} =this.state
+        this.friendlist = [];
+        const {search} =this.state;
 
         for(let i = 0; i<30; i++){
-            friendlist.push(
+            this.friendlist.push(
                 <ListItem
                 key={i}
                 title={String(i)}
@@ -77,7 +95,7 @@ class FriendListScreenView extends React.Component {
                     <ScrollView style={{
 
                     }}>
-                        { friendlist }
+                        { this.friendlist }
                     </ScrollView>
                 </View>
             </View>

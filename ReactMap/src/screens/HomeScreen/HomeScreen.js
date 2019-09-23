@@ -356,6 +356,7 @@ class HomeScreenView extends React.Component {
                   />
                 ))
               }
+              <View style={s.centerMarker}></View>
 
               <View style={s.addLocationPosition}>
                 { this.showButton() }
