@@ -17,32 +17,33 @@ class FriendListScreenView extends React.Component {
         this.friendlist = [];
     }
 
-    searchFriends = () => {
+
+    searchUsers = () => {
         console.log('search: '+this.state.search);
 
-        let url = 'https://thawing-earth-80470.herokuapp.com/search';
+        let url = 'https://afternoon-fortress-51374.herokuapp.com';
 
-        let params = new URLSearchParams();
-        params.append('searchtmp', this.state.search);
-
-        axios.post(url, params, {
-            'Content-Type': 'application/json'
-        })
+        axios.get(url + '/search?word=' + this.state.search)
         .then(res => {
             this.friendlist = res.data
             console.log(this.friendlist);
+            this.forceUpdate();
         })
         .catch(e => {
             console.log(e);
         })
     }
 
-    render() {
-        this.friendlist = [];
-        const {search} =this.state;
+    componentDidUpdate() {
+        console.log('updated');
+    }
 
-        for(let i = 0; i<30; i++){
-            this.friendlist.push(
+    render() {
+        const {search} =this.state;
+        let tmpList = []
+
+        for(let i = 0; i<this.friendlist.length; i++){
+            tmpList.push(
                 <ListItem
                 key={i}
                 title={String(i)}
@@ -76,7 +77,7 @@ class FriendListScreenView extends React.Component {
             inputContainerStyle={{
                 marginHorizontal:5,
             }}
-            onSubmitEditing={this.searchFriends}
+            onSubmitEditing={this.searchUsers}
             placeholder="Search for"
             value={search}
             onChangeText={query => {this.setState({search: query})}}
@@ -96,7 +97,7 @@ class FriendListScreenView extends React.Component {
                     <ScrollView style={{
 
                     }}>
-                        { this.friendlist }
+                        { tmpList }
                     </ScrollView>
                 </View>
             </View>

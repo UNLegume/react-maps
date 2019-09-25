@@ -91,7 +91,7 @@ class AddLocation extends React.Component {
     }
 
     post() {
-        let url = 'https://thawing-earth-80470.herokuapp.com/locations';
+        let url = 'https://afternoon-fortress-51374.herokuapp.com/locations';
 
         let params = new URLSearchParams();
         params.append('longitude', this.props.region.longitude)

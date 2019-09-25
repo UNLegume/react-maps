@@ -5,8 +5,25 @@ import { Button, Input, Card, SearchBar, ListItem, Divider} from 'react-native-e
 import s from './styles';
 import { colors } from '../../styles';
 
+import axios from 'axios';
+
 class IncomingScreenView extends React.Component{
-    render(){
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            search: ''
+        }
+    }
+
+    searchUsers = () => {
+        let url = 'https://afternoon-fortress-51374.herokuapp.com/search';
+
+        let params = new URLSearchParams();
+        params.append()
+    }
+
+    render() {
         var Incoming = [];
 
         for(let i = 0; i<30; i++){

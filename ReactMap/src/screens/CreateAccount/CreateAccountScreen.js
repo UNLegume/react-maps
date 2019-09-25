@@ -6,7 +6,7 @@ import s from './styles';
 import { colors } from '../../styles';
 
 class CreateAccountScreenView extends React.Component{
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             checked: false,
@@ -40,13 +40,15 @@ class CreateAccountScreenView extends React.Component{
     }
 
     signup = () => {
+        let url = 'https://afternoon-fortress-51374.herokuapp.com'
+
         let params = new URLSearchParams();
         params.append('name', this.state.UserName);
         params.append('email', this.state.Email);
         params.append('password', this.state.Pass);
 
         axios
-        .post('https://thawing-earth-80470.herokuapp.com/users',params,
+        .post(url + '/users', params,
         {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
