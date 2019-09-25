@@ -14,6 +14,7 @@ class FriendListScreenView extends React.Component {
             search: ''
         }
 
+        this.userIDlist = [];
         this.friendlist = [];
     }
 
@@ -34,19 +35,40 @@ class FriendListScreenView extends React.Component {
         })
     }
 
+    componentDidMount() {
+        // ユーザー一覧を取得し, statusがtrueのもののみ表示する
+        let url = 'https://afternoon-fortress-51374.herokuapp.com';
+        axios.get(url + '/relations')
+        .then(res => {
+            console.log(res.data.data);
+            for (var i in res.data.data) {
+                if(res.data.data[i].status) {
+                    this.userIDlist.push(res.data.data[i])
+                }
+            }
+
+            
+            this.friendlist = this.userIDlist;
+            this.forceUpdate();
+        })
+        .catch(e => {
+            console.log(e);
+        })
+    }
+
     componentDidUpdate() {
         console.log('updated');
     }
 
     render() {
-        const {search} =this.state;
+        const {search} = this.state;
         let tmpList = []
 
         for(let i = 0; i<this.friendlist.length; i++){
             tmpList.push(
                 <ListItem
                 key={i}
-                title={String(i)}
+                title={this.friendlist[i].name}
                 subtitle='Friend'
                 containerStyle={{
                     backgroundColor:'#FFF',

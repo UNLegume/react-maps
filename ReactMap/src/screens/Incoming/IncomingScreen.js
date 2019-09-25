@@ -14,13 +14,24 @@ class IncomingScreenView extends React.Component{
         this.state = {
             search: ''
         }
+
+        this.friendlist = [];
     }
 
     searchUsers = () => {
-        let url = 'https://afternoon-fortress-51374.herokuapp.com/search';
+        console.log('search: '+this.state.search);
 
-        let params = new URLSearchParams();
-        params.append()
+        let url = 'https://afternoon-fortress-51374.herokuapp.com';
+
+        axios.get(url + '/search?word=' + this.state.search)
+        .then(res => {
+            this.friendlist = res.data
+            console.log(this.friendlist);
+            this.forceUpdate();
+        })
+        .catch(e => {
+            console.log(e);
+        })
     }
 
     render() {
@@ -39,6 +50,7 @@ class IncomingScreenView extends React.Component{
                 />
             );
         }
+
         return(
         <View style={s.container}>
             <Text
