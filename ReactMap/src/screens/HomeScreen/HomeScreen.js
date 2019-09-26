@@ -371,7 +371,8 @@ class HomeScreenView extends React.Component {
 
     componentDidMount() {
       turnOffRegionChange = false;
-      getCurrentLocation().then(pos => {
+      getCurrentLocation()
+      .then(pos => {
         if(pos) {
           this.setState({
             region: {
@@ -382,6 +383,7 @@ class HomeScreenView extends React.Component {
             }
           })
         }
+        this.forceUpdate();
       })
     }
 
