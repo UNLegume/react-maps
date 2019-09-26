@@ -331,7 +331,6 @@ class HomeScreenView extends React.Component {
 
     onRegionChange = (region) => {
       this.setState({region});
-      console.log(region);
     }
 
     returnMap() {

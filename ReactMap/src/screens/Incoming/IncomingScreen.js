@@ -34,6 +34,19 @@ class IncomingScreenView extends React.Component{
         })
     }
 
+    componentDidMount() {
+        console.log('--------------------------------------------');
+        let url = 'https://afternoon-fortress-51374.herokuapp.com';
+
+        axios.get(url + '/incoming?id='+4)
+        .then(res => {
+            console.log(res.data)
+        })
+        .catch(e => {
+            console.log(e)
+        })
+    }
+
     render() {
         var Incoming = [];
 

@@ -3,10 +3,29 @@ import { View, Text, ScrollView} from 'react-native';
 import {Ionicons} from '@expo/vector-icons';
 import { Button, Input, Card, ListItem ,SearchBar, Divider } from 'react-native-elements';
 import s from './styles';
+import axios from 'axios';
 import { colors } from '../../styles';
 
 class LocationInfoScreenView extends React.Component{
-    render(){
+    constructor(props) {
+        super(props);
+    }
+
+    componentDidMount() {
+        console.log('---------------------------------------')
+        // ロケーション一覧を取得する
+        let url = 'https://afternoon-fortress-51374.herokuapp.com';
+
+        axios.get(url + '/locations')
+        .then(res => {
+            console.log(res.data.data)
+        })
+        .catch(e => {
+            console.log(e)
+        })
+    }
+
+    render() {
         var Locationlist = [];
 
         for(let i = 0; i<30; i++){

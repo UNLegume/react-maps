@@ -91,6 +91,7 @@ class AddLocation extends React.Component {
     }
 
     post() {
+        console.log('add')
         let url = 'https://afternoon-fortress-51374.herokuapp.com/locations';
 
         let params = new URLSearchParams();
@@ -100,10 +101,12 @@ class AddLocation extends React.Component {
         params.append('userid', 0)
 
         axios.post(url, params, {
-            'Content-Type': 'application/x-www-form-urlencoded'
+            'Content-Type': 'application/json'
         })
         .then((res) => {
-            console.log('received');
+            console.log('-----------------------')
+            console.log(res.data.data);
+            console.log('-----------------------')
         })
         .catch((err) => {
             console.log(err)
@@ -209,9 +212,9 @@ class AddLocation extends React.Component {
                         />
                     }
                     onPress={() => {
-                        this.buttonOnPress();
                         this.props.obtain(this.props.region.latitude);
                         this.props.obtain(this.props.region.longitude);
+                        this.buttonOnPress();
                         console.log('buttoooooooon');
                     }}
                     >
