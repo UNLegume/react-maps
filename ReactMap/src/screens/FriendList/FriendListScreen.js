@@ -41,15 +41,32 @@ class FriendListScreenView extends React.Component {
         axios.get(url + '/relations')
         .then(res => {
             console.log(res.data.data);
+
+            // まずユーザーのIDを取得する
             for (var i in res.data.data) {
                 if(res.data.data[i].status) {
+                    // フレンドの者だけuserIDlistに格納する
+                    // FIXME: 自分のIDから見たフレンドのみ追加しなくてはならない
                     this.userIDlist.push(res.data.data[i])
                 }
             }
 
-            
-            this.friendlist = this.userIDlist;
-            this.forceUpdate();
+            i = 0;
+
+            for(i in this.userIDlist) {
+                // idからユーザーの情報を取得する
+                // FIXME:
+                console.log('ID:'+this.userIDlist[i].destinationID)
+                axios.get(url + '/users/' + this.userIDlist[i].destinationID)
+                .then(res => {
+                    console.log(res.data.data);
+                    this.friendlist.push(res.data.data);
+                    this.forceUpdate();
+                })
+                .catch(e => {
+                    console.log(e);
+                })
+            }
         })
         .catch(e => {
             console.log(e);
