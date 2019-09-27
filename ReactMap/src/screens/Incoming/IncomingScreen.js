@@ -6,6 +6,7 @@ import s from './styles';
 import { colors } from '../../styles';
 
 import axios from 'axios';
+import { AsyncStorage } from 'react-native';
 
 class IncomingScreenView extends React.Component{
     constructor(props) {
@@ -15,6 +16,7 @@ class IncomingScreenView extends React.Component{
             search: ''
         }
 
+        this.userIDlist = [];
         this.friendlist = [];
     }
 
@@ -34,13 +36,16 @@ class IncomingScreenView extends React.Component{
         })
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         console.log('--------------------------------------------');
         let url = 'https://afternoon-fortress-51374.herokuapp.com';
+        let myID = await AsyncStorage.getItem('myID');
 
-        axios.get(url + '/incoming?id='+4)
+        // 自分のIDに対しての申請を取得する
+        axios.get(url + '/incoming?id='+myID)
         .then(res => {
-            console.log(res.data)
+            console.log(res.data);
+            this.userIDlist = res.data.data
         })
         .catch(e => {
             console.log(e)
@@ -50,7 +55,7 @@ class IncomingScreenView extends React.Component{
     render() {
         var Incoming = [];
 
-        for(let i = 0; i<30; i++){
+        for(let i = 0; i < this.userIDlist.length; i++){
             Incoming.push(
                 <ListItem
                 key={i}

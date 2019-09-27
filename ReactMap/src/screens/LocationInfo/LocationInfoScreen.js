@@ -6,19 +6,37 @@ import s from './styles';
 import axios from 'axios';
 import { colors } from '../../styles';
 
+import { AsyncStorage } from 'react-native';
+
 class LocationInfoScreenView extends React.Component{
     constructor(props) {
         super(props);
+
+        this.locationList = [];
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         console.log('---------------------------------------')
         // ロケーション一覧を取得する
         let url = 'https://afternoon-fortress-51374.herokuapp.com';
+        let myID = await AsyncStorage.getItem('myID');
+        console.log(myID);
+        let tmpArray = [];
 
         axios.get(url + '/locations')
         .then(res => {
-            console.log(res.data.data)
+            // locationテーブルから値の配列を取得する
+
+            for(let i in res.data.data) {
+                if(res.data.data[i].userid == myID) {
+                    // locationテーブルから取得したデータを配列に格納していく
+                    tmpArray.push(res.data.data[i]);
+                }
+            }
+
+            console.log(tmpArray);
+            this.locationList = tmpArray;
+            this.forceUpdate();
         })
         .catch(e => {
             console.log(e)
@@ -28,10 +46,10 @@ class LocationInfoScreenView extends React.Component{
     render() {
         var Locationlist = [];
 
-        for(let i = 0; i<30; i++){
+        for(let i = 0; i < this.locationList.length; i++){
             Locationlist.push(
                 <ListItem
-                title={String(i)}
+                title={this.locationList.place}
                 key={i}
                     containerStyle={{
                         backgroundColor:'#FFF',

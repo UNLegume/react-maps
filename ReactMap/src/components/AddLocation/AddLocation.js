@@ -145,8 +145,8 @@ class AddLocation extends React.Component {
                     }
                     onPress={() => {
                         this.closeOnPress();
-                    }
-                    }>
+                    }}
+                    >
                     </Button>
                 </View>
 

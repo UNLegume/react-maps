@@ -261,8 +261,8 @@ mapstyle = [
     }
     ]
 
-var lat = 36.983732
-var lon = 136.905862
+var lat = 0 //36.983732
+var lon = 0 //136.905862
 var latDelta = 0.0922
 var lonDelta = 0.0421
 
@@ -319,7 +319,9 @@ class HomeScreenView extends React.Component {
         }
     }
 
+    // FIXME: showButtonの描画タイミングをマーカーと合わせる
     showButton = () => {
+      console.log('show button');
       if(showButtonVar) {
         return(
           <AddLocation
@@ -331,7 +333,6 @@ class HomeScreenView extends React.Component {
       }
     }
 
-
     obtain = (region) => {
       console.log(region)
     }
@@ -341,6 +342,7 @@ class HomeScreenView extends React.Component {
     }
 
     returnMap() {
+      console.log('return map');
       if(turnOffRegionChange) {
         return(
           <MapView
@@ -378,49 +380,53 @@ class HomeScreenView extends React.Component {
     }
 
     componentDidUpdate() {
+      console.log('updated');
+      turnOffRegionChange = true;
       showButtonVar = true;
     }
 
-    componentDidMount() {
+    async componentDidMount() {
+      console.log('mounted');
       // 登録してあるランドマークを取得する処理群
       let url = 'https://afternoon-fortress-51374.herokuapp.com/locations';
       let tmpArray = [];
 
-      axios.get(url)
-      .then(async res => {
-        console.log(res.data.data);
-        for(let i in res.data.data) {
-          // 登録者IDが一致するもののみtmpArrayに保存する
-          if(String(res.data.data[i].id) == await AsyncStorage.getItem('myID')) {
-            tmpArray.push(res.data.data[i]);
-          }
-        }
-
-        console.log(tmpArray);
-        // 自分のランドマークをstateに保存する
-        this.setState({markers: tmpArray});
-
-        // 画面を現在位置に移動する処理群
-        turnOffRegionChange = false;
-        getCurrentLocation()
-        .then(pos => {
-          if(pos) {
-            this.setState({
-              region: {
-                latitude: pos.coords.latitude,
-                longitude: pos.coords.longitude,
-                latitudeDelta: latDelta,
-                longitudeDelta: lonDelta,
+      await axios.get(url)
+            .then(async res => {
+              console.log(res.data.data);
+              for(let i in res.data.data) {
+                // 登録者IDが一致するもののみtmpArrayに保存する
+                if(String(res.data.data[i].userid) == await AsyncStorage.getItem('myID')) {
+                  tmpArray.push(res.data.data[i]);
+                }
               }
+
+              console.log(tmpArray);
+              // 自分のランドマークをstateに保存する
+              await this.setState({markers: tmpArray});
+
+              // 画面を現在位置に移動する処理群
+              turnOffRegionChange = false;
+              getCurrentLocation()
+              .then(pos => {
+                console.log('get current location');
+                if(pos) {
+                  this.setState({
+                    region: {
+                      latitude: pos.coords.latitude,
+                      longitude: pos.coords.longitude,
+                      latitudeDelta: latDelta,
+                      longitudeDelta: lonDelta,
+                    }
+                  })
+                }
+
+                this.forceUpdate();
+              })
             })
-          }
-          turnOffRegionChange = true;
-          this.forceUpdate();
-        })
-      })
-      .catch(e => {
-        console.log(e)
-      })
+            .catch(e => {
+              console.log(e)
+            })
     }
 
     render() {
