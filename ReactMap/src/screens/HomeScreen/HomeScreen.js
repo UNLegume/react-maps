@@ -6,6 +6,9 @@ import { AddLocation } from '../../components';
 import s from './styles';
 import { colors } from '../../styles';
 
+import axios from 'axios';
+import { AsyncStorage } from 'react-native';
+
 mapstyle = [
     {
       "elementType": "geometry",
@@ -286,6 +289,7 @@ class HomeScreenView extends React.Component {
         this.state = {
           search: '',
           markers: [
+          /*
               {
                   latlng: {
                       latitude: 34.983732,
@@ -302,6 +306,7 @@ class HomeScreenView extends React.Component {
                   latitudeDelta: 0.0922,
                   longitudeDelta: 0.0421
               }
+          */
           ],
           region: {
               latitude: lat,
@@ -334,7 +339,7 @@ class HomeScreenView extends React.Component {
     }
 
     returnMap() {
-      if(!turnOffRegionChange) {
+      if(turnOffRegionChange) {
         return(
           <MapView
               provider={PROVIDER_GOOGLE}
@@ -349,7 +354,12 @@ class HomeScreenView extends React.Component {
               {this.state.markers.map((marker, index) => (
                   <MapView.Marker
                   key={index}
-                  coordinate={marker.latlng}
+                  coordinate={
+                    {
+                      latitude: marker.latitude,
+                      longitude: marker.longitude
+                    }
+                  }
                   latitudeDelta={marker.latitudeDelta}
                   longitudeDelta={marker.longitudeDelta}
                   />
@@ -370,20 +380,44 @@ class HomeScreenView extends React.Component {
     }
 
     componentDidMount() {
-      turnOffRegionChange = false;
-      getCurrentLocation()
-      .then(pos => {
-        if(pos) {
-          this.setState({
-            region: {
-              latitude: pos.coords.latitude,
-              longitude: pos.coords.longitude,
-              latitudeDelta: latDelta,
-              longitudeDelta: lonDelta,
-            }
-          })
+      // 登録してあるランドマークを取得する処理群
+      let url = 'https://afternoon-fortress-51374.herokuapp.com/locations';
+      let tmpArray = [];
+
+      axios.get(url)
+      .then(async res => {
+        console.log(res.data.data);
+        for(let i in res.data.data) {
+          // 登録者IDが一致するもののみtmpArrayに保存する
+          if(String(res.data.data[i].id) == await AsyncStorage.getItem('myID')) {
+            tmpArray.push(res.data.data[i]);
+          }
         }
-        this.forceUpdate();
+
+        console.log(tmpArray);
+        // 自分のランドマークをstateに保存する
+        this.setState({markers: tmpArray});
+
+        // 画面を現在位置に移動する処理群
+        turnOffRegionChange = false;
+        getCurrentLocation()
+        .then(pos => {
+          if(pos) {
+            this.setState({
+              region: {
+                latitude: pos.coords.latitude,
+                longitude: pos.coords.longitude,
+                latitudeDelta: latDelta,
+                longitudeDelta: lonDelta,
+              }
+            })
+          }
+          turnOffRegionChange = true;
+          this.forceUpdate();
+        })
+      })
+      .catch(e => {
+        console.log(e)
       })
     }
 
