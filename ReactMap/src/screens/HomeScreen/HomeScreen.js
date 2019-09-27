@@ -9,6 +9,8 @@ import { colors } from '../../styles';
 import axios from 'axios';
 import { AsyncStorage } from 'react-native';
 
+// FIXME: 表示がおかしくなる
+
 mapstyle = [
     {
       "elementType": "geometry",
