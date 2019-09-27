@@ -49,11 +49,12 @@ class LocationInfoScreenView extends React.Component{
         for(let i = 0; i < this.locationList.length; i++){
             Locationlist.push(
                 <ListItem
-                title={this.locationList.place}
+                title={this.locationList[i].place}
                 key={i}
-                    containerStyle={{
-                        backgroundColor:'#FFF',
-                    }}
+                subtitle='Location'
+                containerStyle={{
+                    backgroundColor:'#FFF',
+                }}
                 bottomDivider={true}
                 />
             );
@@ -89,8 +90,13 @@ class LocationInfoScreenView extends React.Component{
                 marginTop:10,
                 borderTopLeftRadius:20,
                 borderTopRightRadius:20,
-                }}>
-                <View style={{ marginTop:70 }}>
+            }}>
+                <View style={{marginVertical:12, marginLeft: 30}}>
+                    <Text style={{fontSize: 32, color:'#fff'}}>
+                        Your Locations
+                    </Text>
+                </View>
+                <View style={{ marginTop:-1 }}>
                     <ScrollView>
                     { Locationlist }
                     </ScrollView>
