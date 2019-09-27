@@ -6,6 +6,8 @@ import s from './styles';
 import { colors } from '../../styles';
 import axios from 'axios';
 
+import { AsyncStorage } from 'react-native';
+
 class FriendListScreenView extends React.Component {
     constructor(props) {
         super(props);
@@ -73,6 +75,30 @@ class FriendListScreenView extends React.Component {
         })
     }
 
+    sendFriendRequest = async (id) => {
+        // フレンドリクエスト送信の関数
+        let url = 'https://afternoon-fortress-51374.herokuapp.com';
+        let myID = await AsyncStorage.getItem('myID');
+
+        console.log(myID);
+        console.log(id);
+
+        let params = new URLSearchParams();
+        // 自分のIDを引数に登録する
+        params.append('id', parseInt(myID));
+        params.append('destinationID', id);
+
+        axios.post(url + '/relations', params, {
+            'Content-Type': 'application/json'
+        })
+        .then(res => {
+            console.log(res.data);
+        })
+        .catch(e => {
+            console.log(e);
+        })
+    }
+
     componentDidUpdate() {
         console.log('updated');
     }
@@ -91,6 +117,8 @@ class FriendListScreenView extends React.Component {
                     backgroundColor:'#FFF',
                 }}
                 bottomDivider={true}
+                // クリックイベントでフレンド申請を行う
+                onPress={() => this.sendFriendRequest(this.friendlist[i].id)}
                 />
             );
         }
