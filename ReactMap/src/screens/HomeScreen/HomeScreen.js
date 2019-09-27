@@ -269,6 +269,8 @@ var lonDelta = 0.0421
 var turnOffRegionChange = false
 var showButtonVar = false
 
+this.myName = '';
+
 var getCurrentLocation = () => {
   return new Promise((resolve, reject) => {
     navigator.geolocation.getCurrentPosition(
@@ -380,7 +382,6 @@ class HomeScreenView extends React.Component {
     }
 
     componentDidUpdate() {
-      console.log('updated');
       turnOffRegionChange = true;
       showButtonVar = true;
     }
@@ -390,6 +391,7 @@ class HomeScreenView extends React.Component {
       // 登録してあるランドマークを取得する処理群
       let url = 'https://afternoon-fortress-51374.herokuapp.com/locations';
       let tmpArray = [];
+      this.myName = await AsyncStorage.getItem('myName');
 
       await axios.get(url)
             .then(async res => {
@@ -454,7 +456,7 @@ class HomeScreenView extends React.Component {
                         marginTop:5,
                     }}
                     >
-                        KoyanagiRyouta
+                      {this.myName}
                     </Text>
                 </View>
                 <SearchBar

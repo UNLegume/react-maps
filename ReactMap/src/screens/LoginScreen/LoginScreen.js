@@ -45,8 +45,7 @@ class LoginScreenView extends React.Component{
             await AsyncStorage.setItem('access_token', res.data.data.access_token);
             await AsyncStorage.setItem('refresh_token', res.data.data.refresh_token);
             await AsyncStorage.setItem('expires_in', String(res.data.data.expires_in));
-            this.props.navigation.navigate('Friend')
-            console.log("moved to friend")
+            this.props.navigation.navigate('splash');
         })
         .catch(error => {
             console.log(error);

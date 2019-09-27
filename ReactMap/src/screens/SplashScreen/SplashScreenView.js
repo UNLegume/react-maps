@@ -29,10 +29,11 @@ class SplashScreenView extends React.Component {
             await AsyncStorage.setItem('myID', String(res.data.data.id))
             await AsyncStorage.setItem('myName', res.data.data.name)
 
-            this.props.navigation.navigate('main')
+            this.props.navigation.navigate('main');
         })
         .catch(e => {
-            console.log(e)
+            //console.log(e)
+            this.props.navigation.navigate('Login');
         })
     }
 

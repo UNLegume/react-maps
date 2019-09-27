@@ -54,11 +54,11 @@ class CreateAccountScreenView extends React.Component{
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
         })
-        .then(function(response){
+        .then(function(response) {
             console.log(response);
-            this.props.navigation.navigate('main')
+            this.props.navigation.navigate('Login')
         })
-        .catch(function(error){
+        .catch(function(error) {
             console.log(error);
         });
     }

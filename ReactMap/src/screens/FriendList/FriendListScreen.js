@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, ScrollView} from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import {Ionicons} from '@expo/vector-icons';
 import { Button, Input, Card, SearchBar, ListItem, Divider} from 'react-native-elements';
 import s from './styles';
@@ -20,6 +20,11 @@ class FriendListScreenView extends React.Component {
         this.friendlist = [];
     }
 
+    // タブをクリックした時に切り替えるための関数
+    switchTab = () => {
+        console.log('switchTab');
+        this.props.navigation.navigate('incoming');
+    }
 
     searchUsers = () => {
         console.log('search: '+this.state.search);
@@ -124,7 +129,8 @@ class FriendListScreenView extends React.Component {
         }
 
         return(
-        <View style={s.container}>
+        <View style={s.container}
+            >
             <Text
             style={{
                 fontSize:24,
@@ -157,7 +163,12 @@ class FriendListScreenView extends React.Component {
                 borderTopRightRadius:20,
                 }}>
                 <View style={{marginVertical:12,marginLeft:30,}}>
-                    <Text style={{fontSize:32,color:'#fff'}}>Koyanagi</Text>
+                    <TouchableOpacity
+                    onPress={() => {this.switchTab()}}>
+                        <Text style={{fontSize:32,color:'#fff'}}>
+                            Koyanagi
+                        </Text>
+                    </TouchableOpacity>
                     {/* <Text style={{fontSize:18,color:'#fff',marginTop:5,}}>Recommend</Text> */}
                 </View>
                 <View style={{ marginTop:-1 }}>

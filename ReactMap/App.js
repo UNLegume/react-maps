@@ -35,7 +35,7 @@ export default class App extends React.Component{
     });
 
     const NavigatorTab = createAppContainer(
-      createBottomTabNavigator({
+      createSwitchNavigator({
         splash: {screen: SplashScreen},
         main: {screen: MainTab},
         Login: {screen: LoginView},
