@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, ScrollView} from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import {Ionicons} from '@expo/vector-icons';
 import { Button, Input, Card, SearchBar, ListItem, Divider} from 'react-native-elements';
 import s from './styles';
@@ -18,6 +18,11 @@ class IncomingScreenView extends React.Component{
 
         this.userIDlist = [];
         this.friendlist = [];
+    }
+
+    switchTab = () => {
+        console.log('switch')
+        this.props.navigation.navigate('friendList');
     }
 
     searchUsers = () => {
@@ -101,8 +106,13 @@ class IncomingScreenView extends React.Component{
                 borderTopLeftRadius:20,
                 borderTopRightRadius:20,
                 }}>
-                <View style={{marginVertical:5,marginLeft:30,}}>
-                    <Text style={{fontSize:24,color:'#fff',marginVertical:15}}>Add Friend</Text>
+                <View style={{marginVertical:12, marginLeft:30,}}>
+                    <TouchableOpacity
+                    onPress={() => this.switchTab()}>
+                        <Text style={{fontSize:32, color:'#fff'}}>
+                            Incoming Users
+                        </Text>
+                    </TouchableOpacity>
                 </View>
                 <View style={{ marginTop:-1 }}>
                     <ScrollView style={{

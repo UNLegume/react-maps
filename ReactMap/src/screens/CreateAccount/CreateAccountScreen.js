@@ -19,7 +19,7 @@ class CreateAccountScreenView extends React.Component{
 
     Accept = () => {
         this.setState(prevState => {
-        return { checked: !prevState.checked }
+            return { checked: !prevState.checked }
         })
     };
 

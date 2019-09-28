@@ -27,7 +27,7 @@ export default class App extends React.Component{
   render() {
     const MainTab = createBottomTabNavigator({
       Map: {screen: HomeScreenView},
-      Friend: createBottomTabNavigator({
+      Friend: createSwitchNavigator({
         friendList : {screen: FriendScreenView},
         incoming: {screen: IncomingScreenView}
       }),
