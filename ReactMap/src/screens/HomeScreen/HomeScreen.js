@@ -323,14 +323,16 @@ class HomeScreenView extends React.Component {
 
     // FIXME: showButtonの描画タイミングをマーカーと合わせる
     showButton = () => {
-      console.log('show button');
       if(showButtonVar) {
+        console.log('show button');
         return(
-          <AddLocation
-            obtain={this.obtain}
-            region={this.state.region}
-            placeName={this.state.placeName}
-          />
+          <View style={s.addLocationPosition}>
+            <AddLocation
+              obtain={this.obtain}
+              region={this.state.region}
+              placeName={this.state.placeName}
+            />
+          </View>
         )
       }
     }
@@ -344,8 +346,8 @@ class HomeScreenView extends React.Component {
     }
 
     returnMap() {
-      console.log('return map');
       if(turnOffRegionChange) {
+        console.log('return map');
         return(
           <MapView
               provider={PROVIDER_GOOGLE}
@@ -355,6 +357,10 @@ class HomeScreenView extends React.Component {
               showsUserLocation={true}
               followUserLocation={true}
               onRegionChange={this.onRegionChange}
+              liteMode={true}
+              onMapReady={() => {
+                console.log('ready')
+              }}
               //onRegionChangeComplete={this.reloadEntities}
           >
               {this.state.markers.map((marker, index) => (
@@ -372,10 +378,7 @@ class HomeScreenView extends React.Component {
                 ))
               }
               <View style={s.centerMarker}></View>
-
-              <View style={s.addLocationPosition}>
                 { this.showButton() }
-              </View>
           </MapView>
         )
       }
@@ -401,8 +404,7 @@ class HomeScreenView extends React.Component {
     }
 
     componentDidUpdate() {
-      turnOffRegionChange = true;
-      showButtonVar = true;
+
     }
 
     async componentDidMount() {
@@ -424,15 +426,14 @@ class HomeScreenView extends React.Component {
 
               console.log(tmpArray);
               // 自分のランドマークをstateに保存する
-              await this.setState({markers: tmpArray});
 
               // 画面を現在位置に移動する処理群
               turnOffRegionChange = false;
               getCurrentLocation()
-              .then(pos => {
+              .then(async pos => {
                 console.log('get current location');
                 if(pos) {
-                  this.setState({
+                  await this.setState({
                     region: {
                       latitude: pos.coords.latitude,
                       longitude: pos.coords.longitude,
@@ -442,7 +443,12 @@ class HomeScreenView extends React.Component {
                   })
                 }
 
-                this.forceUpdate();
+                turnOffRegionChange = true;
+                showButtonVar = true;
+
+                await this.setState({markers: tmpArray});
+
+                //this.forceUpdate();
               })
             })
             .catch(e => {
