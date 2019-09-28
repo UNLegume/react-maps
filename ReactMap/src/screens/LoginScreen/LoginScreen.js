@@ -5,7 +5,7 @@ import axios from 'axios';
 import s from './styles';
 import { colors } from '../../styles';
 
-import { AsyncStorage } from 'react-native';
+import { AsyncStorage, Alert } from 'react-native';
 
 class LoginScreenView extends React.Component{
     constructor(props) {
@@ -24,6 +24,16 @@ class LoginScreenView extends React.Component{
         this.setState({password: text});
     }
 
+    showAlert = () => {
+        Alert.alert(
+            'ログイン失敗',
+            'パスワードまたはメールアドレスが間違っています。',
+            [
+                {text: 'OK'}
+            ]
+        )
+    }
+
     login = () => {
         let url = 'https://afternoon-fortress-51374.herokuapp.com/login';
 
@@ -36,16 +46,20 @@ class LoginScreenView extends React.Component{
             'Content-Type': 'application/json'
         })
         .then(async res => {
-            console.log(res.data.data)
-            try {
-                console.log('debug:' + AsyncStorage.getItem('access_token'))
-            } catch(e) {
+            console.log(res.data.data);
 
+            // ログイン時の例外処理
+            if(res.data.data.error != "Invalid request") {
+                await AsyncStorage.setItem('access_token', res.data.data.access_token);
+                await AsyncStorage.setItem('refresh_token', res.data.data.refresh_token);
+                await AsyncStorage.setItem('expires_in', String(res.data.data.expires_in));
+
+                this.props.navigation.navigate('splash');
             }
-            await AsyncStorage.setItem('access_token', res.data.data.access_token);
-            await AsyncStorage.setItem('refresh_token', res.data.data.refresh_token);
-            await AsyncStorage.setItem('expires_in', String(res.data.data.expires_in));
-            this.props.navigation.navigate('splash');
+            else {
+                this.showAlert();
+            }
+
         })
         .catch(error => {
             console.log(error);

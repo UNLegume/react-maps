@@ -5,6 +5,8 @@ import axios from 'axios';
 import s from './styles';
 import { colors } from '../../styles';
 
+import { Alert } from 'react-native';
+
 class CreateAccountScreenView extends React.Component{
     constructor(props) {
         super(props);
@@ -40,27 +42,38 @@ class CreateAccountScreenView extends React.Component{
     }
 
     signup = () => {
-        let url = 'https://afternoon-fortress-51374.herokuapp.com'
+        if(this.state.checked) {
+            let url = 'https://afternoon-fortress-51374.herokuapp.com'
 
-        let params = new URLSearchParams();
-        params.append('name', this.state.UserName);
-        params.append('email', this.state.Email);
-        params.append('password', this.state.Pass);
+            let params = new URLSearchParams();
+            params.append('name', this.state.UserName);
+            params.append('email', this.state.Email);
+            params.append('password', this.state.Pass);
 
-        axios
-        .post(url + '/users', params,
-        {
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
-        })
-        .then(function(response) {
-            console.log(response);
-            this.props.navigation.navigate('Login')
-        })
-        .catch(function(error) {
-            console.log(error);
-        });
+            axios
+            .post(url + '/users', params,
+            {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            })
+            .then(function(response) {
+                console.log(response);
+                this.props.navigation.navigate('Login')
+            })
+            .catch(function(error) {
+                console.log(error);
+            });
+        }
+        else {
+            Alert.alert(
+                '同意',
+                'サービスを開始するためには利用規約への同意が必要です。',
+                [
+                    {text: 'OK'}
+                ]
+            )
+        }
     }
 
     render(){
@@ -98,11 +111,13 @@ class CreateAccountScreenView extends React.Component{
                         placeholder='Password'
                         onChangeText={(text)=>this.Pass(text)}
                         inputStyle={{marginTop:20}}
+                        secureTextEntry={true}
                     />
                     <Input
                         placeholder='Comfirm'
                         onChangeText={(text)=>this.Comfirm(text)}
                         inputStyle={{marginTop:20}}
+                        secureTextEntry={true}
                     />
                     <CheckBox
                         containerStyle={{
@@ -135,7 +150,19 @@ class CreateAccountScreenView extends React.Component{
                     titleStyle={{
                         color:colors.SubTextW,
                     }}
-                    title='Back'
+                    title='利用規約'
+                    type='clear'
+                    onPress={() => {}}
+                />
+                <Button
+                    buttonStyle={{
+                        marginLeft:260,
+                        marginTop:10,
+                    }}
+                    titleStyle={{
+                        color:colors.SubTextW,
+                    }}
+                    title='戻る'
                     type="clear"
                     onPress={() =>this.props.navigation.navigate('Login')}
                 />
