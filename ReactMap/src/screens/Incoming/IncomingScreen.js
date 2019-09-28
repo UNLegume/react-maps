@@ -21,7 +21,7 @@ class IncomingScreenView extends React.Component{
     }
 
     switchTab = () => {
-        console.log('switch')
+        console.log('switch');
         this.props.navigation.navigate('friendList');
     }
 

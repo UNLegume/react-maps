@@ -7,7 +7,7 @@ import s from './styles';
 import { colors } from '../../styles';
 
 import axios from 'axios';
-import { AsyncStorage } from 'react-native';
+import { AsyncStorage, Alert } from 'react-native';
 
 // FIXME: 表示がおかしくなる
 
@@ -269,8 +269,6 @@ var lonDelta = 0.0421
 var turnOffRegionChange = false
 var showButtonVar = false
 
-this.myName = '';
-
 var getCurrentLocation = () => {
   return new Promise((resolve, reject) => {
     navigator.geolocation.getCurrentPosition(
@@ -319,6 +317,8 @@ class HomeScreenView extends React.Component {
               longitudeDelta: 0.0421,
           },
         }
+
+        this.myName = '';
     }
 
     // FIXME: showButtonの描画タイミングをマーカーと合わせる
@@ -379,6 +379,25 @@ class HomeScreenView extends React.Component {
           </MapView>
         )
       }
+    }
+
+    showAlert() {
+      Alert.alert(
+        'ログアウト',
+        'ログアウトしますか？',
+        [
+          {
+            text: 'キャンセル',
+          },
+          {
+            text: 'OK',
+            onPress: async () => {
+              await AsyncStorage.removeItem('access_token');
+              this.props.navigation.navigate('splash');
+            }
+          }
+        ]
+      )
     }
 
     componentDidUpdate() {
@@ -448,6 +467,7 @@ class HomeScreenView extends React.Component {
                         titleStyle={{fontSize:20}
                         }
                         rounded
+                        onPress={() => {this.showAlert()}}
                     />
                     <Text
                     style={{
