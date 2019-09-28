@@ -95,6 +95,7 @@ class LoginScreenView extends React.Component{
                 placeholder='password'
                 onChangeText={(text)=>this.password(text)}
                 inputStyle={{marginTop:20}}
+                secureTextEntry={true}
                 />
             </Card>
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
-import { Ionicons, MaterialIcons } from '@expo/vector-icons';
+import { Ionicons, MaterialIcons, Entypo } from '@expo/vector-icons';
 
 import HomeScreenView from './src/screens/HomeScreen';
 import LocationInfoScreenView from './src/screens/LocationInfo';
@@ -16,7 +16,7 @@ import SplashScreen from './src/screens/SplashScreen';
 
 import { colors } from './src/styles';
 
-import { AsyncStorage } from 'react-native';
+//import { AsyncStorage } from 'react-native';
 //import { SplashScreen } from 'expo';
 
 export default class App extends React.Component{
@@ -25,23 +25,82 @@ export default class App extends React.Component{
   }
 
   render() {
-    const MainTab = createBottomTabNavigator({
-      Map: {screen: HomeScreenView},
-      Friend: createSwitchNavigator({
-        friendList : {screen: FriendScreenView},
-        incoming: {screen: IncomingScreenView}
-      }),
-      Location: {screen: LocationInfoScreenView},
-    });
+    const MainTab = createBottomTabNavigator(
+      {
+        Map: {
+          screen: HomeScreenView,
+          navigationOptions: () => ({
+            tabBarIcon: ({ tintColor }) => (
+              <Entypo
+              name="map"
+              color={tintColor}
+              size={25}
+              />
+            )
+          })
+        },
+        Friend: {
+          screen: createSwitchNavigator({
+            friendList : {
+              screen: FriendScreenView
+            },
+            incoming: {
+              screen: IncomingScreenView
+            }
+          }),
+          navigationOptions: () => ({
+            tabBarIcon: ({ tintColor }) => (
+              <Entypo
+              name="users"
+              color={tintColor}
+              size={25}
+              />
+            )
+          })
+        },
+        Location: {
+          screen: LocationInfoScreenView,
+          navigationOptions: () => ({
+            tabBarIcon: ({ tintColor }) => (
+              <Entypo
+              name="location"
+              color={tintColor}
+              size={25}
+              />
+            )
+          })
+        },
+      },
+      {
+        tabBarOptions: {
+          style: {
+            backgroundColor: colors.ButtonYellow
+          },
+          showLabel: false
+        }
+      }
+    );
 
     const NavigatorTab = createAppContainer(
       createSwitchNavigator({
-        splash: {screen: SplashScreen},
-        main: {screen: MainTab},
-        Login: {screen: LoginView},
-        Create: {screen: CreateAccountView},
-        Forgot: {screen: CreateNewPasswardView},
-        Mail: {screen: SendEmailView},
+        splash: {
+          screen: SplashScreen
+        },
+        main: {
+          screen: MainTab
+        },
+        Login: {
+          screen: LoginView
+        },
+        Create: {
+          screen: CreateAccountView
+        },
+        Forgot: {
+          screen: CreateNewPasswardView
+        },
+        Mail: {
+          screen: SendEmailView
+        },
       })
     );
 
