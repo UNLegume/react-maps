@@ -13,6 +13,7 @@ const duration = 300
 
 class AddLocation extends React.Component {
     constructor(props){
+        console.log('addLocation constructor');
         super(props);
         this.state = {
             placeName: ''
@@ -90,6 +91,13 @@ class AddLocation extends React.Component {
         this.forceUpdate();
     }
 
+    sleep(waitMsec) {
+        var startMsec = new Date();
+
+        // 指定ミリ秒間だけループさせる（CPUは常にビジー状態）
+        while (new Date() - startMsec < waitMsec);
+    }
+
     post() {
         console.log('add')
         let url = 'https://afternoon-fortress-51374.herokuapp.com/locations';
@@ -115,6 +123,9 @@ class AddLocation extends React.Component {
     }
 
     render() {
+        console.log('add location');
+        this.sleep(500);
+        console.log('added location')
         return (
             <Animated.View style={{
                 flex: 1,

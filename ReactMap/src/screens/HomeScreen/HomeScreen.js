@@ -284,6 +284,7 @@ var getCurrentLocation = () => {
 
 class HomeScreenView extends React.Component {
     constructor(props) {
+      console.log('constructor')
         super(props);
         turnOffRegionChange = true;
         this.componentDidMount = this.componentDidMount.bind(this);
@@ -334,6 +335,8 @@ class HomeScreenView extends React.Component {
             />
           </View>
         )
+      } else {
+        console.log('no button')
       }
     }
 
@@ -345,7 +348,7 @@ class HomeScreenView extends React.Component {
       this.setState({region});
     }
 
-    returnMap() {
+    returnMap = () => {
       if(turnOffRegionChange) {
         console.log('return map');
         return(
@@ -358,10 +361,18 @@ class HomeScreenView extends React.Component {
               followUserLocation={true}
               onRegionChange={this.onRegionChange}
               liteMode={true}
-              onMapReady={() => {
-                console.log('ready')
-              }}
-              //onRegionChangeComplete={this.reloadEntities}
+              onRegionChangeComplete={
+                () => {
+                  console.log('onRegionChangeComplete');
+                  this.forceUpdate();
+                  //showButtonVar = true;
+                }
+              }
+              onMapReady={
+                () => {
+                  console.log("map ready");
+                }
+              }
           >
               {this.state.markers.map((marker, index) => (
                   <MapView.Marker
@@ -378,7 +389,6 @@ class HomeScreenView extends React.Component {
                 ))
               }
               <View style={s.centerMarker}></View>
-                { this.showButton() }
           </MapView>
         )
       }
@@ -401,10 +411,6 @@ class HomeScreenView extends React.Component {
           }
         ]
       )
-    }
-
-    componentDidUpdate() {
-
     }
 
     async componentDidMount() {
@@ -443,12 +449,14 @@ class HomeScreenView extends React.Component {
                   })
                 }
 
-                turnOffRegionChange = true;
-                showButtonVar = true;
-
                 await this.setState({markers: tmpArray});
 
-                //this.forceUpdate();
+                turnOffRegionChange = true;
+                //showButtonVar = true;
+
+                showButtonVar = true;
+
+                this.forceUpdate();
               })
             })
             .catch(e => {
@@ -462,9 +470,9 @@ class HomeScreenView extends React.Component {
                 <View
                     style={{
                     flexDirection: 'row',
-                    marginTop:40,
+                    marginTop:35,
                     marginLeft:20,
-                    marginBottom:20,
+                    marginBottom:15,
                     }}
                     >
                     <Avatar
@@ -496,6 +504,7 @@ class HomeScreenView extends React.Component {
                     round
                 />
                 { this.returnMap() }
+                { this.showButton() }
             </View>
         );
     }
