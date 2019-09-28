@@ -8,7 +8,7 @@ import axios from 'axios';
 
 const buttonRadius = 60
 const rectHeight = 170
-const rectWidth = 380
+const rectWidth = 300
 const duration = 300
 
 class AddLocation extends React.Component {
@@ -123,9 +123,6 @@ class AddLocation extends React.Component {
     }
 
     render() {
-        console.log('add location');
-        this.sleep(500);
-        console.log('added location')
         return (
             <Animated.View style={{
                 flex: 1,

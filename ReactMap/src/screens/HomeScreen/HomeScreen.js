@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, KeyboardAvoidingView } from 'react-native';
 import { Button, Avatar, SearchBar, Card } from 'react-native-elements';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { AddLocation } from '../../components';
@@ -466,6 +466,10 @@ class HomeScreenView extends React.Component {
 
     render() {
         return(
+          <KeyboardAvoidingView
+          style={s.container}
+          behavior="padding"
+          >
             <View style={s.container}>
                 <View
                     style={{
@@ -499,13 +503,14 @@ class HomeScreenView extends React.Component {
                         borderColor: colors.BGColor,
                     }}
                     placeholder="Search for"
-                    onChangeText={this.updateSearch}
+                    onChangeText={query => {this.setState({search: query})}}
                     value={this.state.search}
                     round
                 />
                 { this.returnMap() }
                 { this.showButton() }
             </View>
+          </KeyboardAvoidingView>
         );
     }
 }
