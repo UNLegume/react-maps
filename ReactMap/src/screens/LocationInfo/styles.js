@@ -1,10 +1,12 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import { colors } from '../../styles';
+
+const height = Dimensions.get('window').height - 50;
 
 const styles = StyleSheet.create({
     container:{
-        flex:1,
         backgroundColor:colors.BGColor,
+        height: height
     },
 });
 

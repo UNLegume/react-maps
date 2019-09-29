@@ -4,12 +4,15 @@ import { colors } from '../../styles';
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 
+const contentHeight = height - 50
+
 const styles = StyleSheet.create({
     container:{
         flex:1,
         backgroundColor:colors.BGColor,
         alignContent:'center',
         flexDirection:'column',
+        height: contentHeight
     },
 
     map:{

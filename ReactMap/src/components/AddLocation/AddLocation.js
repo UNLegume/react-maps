@@ -117,6 +117,7 @@ class AddLocation extends React.Component {
             console.log('-----------------------')
             this.setState({placeName: ''});
             this.textInput.clear();
+            this.props.forceRemount();
         })
         .catch((err) => {
             console.log(err)

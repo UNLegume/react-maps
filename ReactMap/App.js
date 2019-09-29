@@ -74,6 +74,7 @@ export default class App extends React.Component{
       {
         tabBarOptions: {
           style: {
+            height: 50,
             backgroundColor: colors.ButtonYellow
           },
           showLabel: false

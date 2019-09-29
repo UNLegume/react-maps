@@ -9,8 +9,6 @@ import { colors } from '../../styles';
 import axios from 'axios';
 import { AsyncStorage, Alert } from 'react-native';
 
-// FIXME: 表示がおかしくなる
-
 mapstyle = [
     {
       "elementType": "geometry",
@@ -317,16 +315,26 @@ class HomeScreenView extends React.Component {
               latitudeDelta: 0.0922,
               longitudeDelta: 0.0421,
           },
+
+          uniqueValue : 0
         }
 
         this.myName = '';
         this.myID = '';
     }
 
+    forceRemount = () => {
+      console.log('force remount')
+      this.setState(({ uniqueValue }) => ({
+        uniqueValue: uniqueValue + 1
+      }));
+    }
+
     showButton = () => {
       if(showButtonVar) {
         //let myID = await AsyncStorage.getItem('myID');
         console.log('show button');
+        console.log(this.state.uniqueValue);
         return(
           <View style={s.addLocationPosition}>
             <AddLocation
@@ -334,6 +342,7 @@ class HomeScreenView extends React.Component {
               region={this.state.region}
               placeName={this.state.placeName}
               myID={parseInt(this.myID)}
+              forceRemount={this.forceRemount}
             />
           </View>
         )
@@ -492,9 +501,10 @@ class HomeScreenView extends React.Component {
                     />
                     <Text
                     style={{
-                        fontSize:24,
+                        fontSize:35,
                         marginLeft:14,
-                        marginTop:5,
+                        marginTop:18,
+                        color: colors.SubTextW
                     }}
                     >
                       {this.myName}

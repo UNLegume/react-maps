@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
 import {Ionicons} from '@expo/vector-icons';
 import { Button, Input, Card, SearchBar, ListItem, Divider} from 'react-native-elements';
 import s from './styles';
@@ -173,7 +173,7 @@ class FriendListScreenView extends React.Component {
                 </View>
                 <View style={{ marginTop:-1 }}>
                     <ScrollView style={{
-
+                        height: Dimensions.get('window').height - 255
                     }}>
                         { tmpList }
                     </ScrollView>

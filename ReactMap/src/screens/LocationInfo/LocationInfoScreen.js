@@ -1,6 +1,6 @@
 import React from 'react';
+import { Dimensions } from 'react-native';
 import { View, Text, ScrollView} from 'react-native';
-import {Ionicons} from '@expo/vector-icons';
 import { Button, Input, Card, ListItem ,SearchBar, Divider } from 'react-native-elements';
 import s from './styles';
 import axios from 'axios';
@@ -59,6 +59,7 @@ class LocationInfoScreenView extends React.Component{
                 />
             );
         }
+
         return(
         <View style={s.container}>
             <Text
@@ -96,8 +97,10 @@ class LocationInfoScreenView extends React.Component{
                         Your Locations
                     </Text>
                 </View>
-                <View style={{ marginTop:-1 }}>
-                    <ScrollView>
+                <View>
+                    <ScrollView style={{
+                        height: Dimensions.get('window').height - 255
+                    }}>
                     { Locationlist }
                     </ScrollView>
                 </View>
