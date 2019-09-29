@@ -6,7 +6,9 @@ import s from './styles';
 import { colors } from '../../styles';
 
 import axios from 'axios';
-import { AsyncStorage } from 'react-native';
+import { AsyncStorage, Alert } from 'react-native';
+
+var url = 'https://afternoon-fortress-51374.herokuapp.com';
 
 class IncomingScreenView extends React.Component{
     constructor(props) {
@@ -16,7 +18,7 @@ class IncomingScreenView extends React.Component{
             search: ''
         }
 
-        this.userIDlist = [];
+        this.userList = [];
         this.friendlist = [];
     }
 
@@ -25,10 +27,36 @@ class IncomingScreenView extends React.Component{
         this.props.navigation.navigate('friendList');
     }
 
+    async acceptUser(id) {
+        let myID = await AsyncStorage.getItem('myID');
+
+        let params = new URLSearchParams();
+        params.append('id', parseInt(myID));
+        params.append('destinationID', id);
+
+        axios.post(url + '/relations', params, {
+            'Content-Type': 'application/json'
+        })
+        .then(res => {
+            console.log(res);
+            Alert.alert(
+                '承認',
+                'フレンド承認をしました',
+                [
+                    {
+                        text: 'OK'
+                    }
+                ]
+            )
+            this.forceUpdate();
+        })
+        .catch(e => {
+            console.log(e);
+        })
+    }
+
     searchUsers = () => {
         console.log('search: '+this.state.search);
-
-        let url = 'https://afternoon-fortress-51374.herokuapp.com';
 
         axios.get(url + '/search?word=' + this.state.search)
         .then(res => {
@@ -50,7 +78,8 @@ class IncomingScreenView extends React.Component{
         axios.get(url + '/incoming?id='+myID)
         .then(res => {
             console.log(res.data);
-            this.userIDlist = res.data.data
+            this.userList = res.data.data;
+            this.forceUpdate();
         })
         .catch(e => {
             console.log(e)
@@ -58,18 +87,19 @@ class IncomingScreenView extends React.Component{
     }
 
     render() {
-        var Incoming = [];
+        var incoming = [];
 
-        for(let i = 0; i < this.userIDlist.length; i++){
-            Incoming.push(
+        for(let i = 0; i < this.userList.length; i++){
+            incoming.push(
                 <ListItem
                 key={i}
-                title={String(i)}
+                title={this.userList[i].name}
                 subtitle='Incoming'
                     containerStyle={{
                         backgroundColor:'#FFF',
                     }}
                 bottomDivider={true}
+                onPress={() => this.acceptUser(this.userList[i].id)}
                 />
             );
         }
@@ -84,7 +114,7 @@ class IncomingScreenView extends React.Component{
                 marginBottom:5,
                 color:'#FFF',
             }}
-            >Incoming</Text>
+            >incoming</Text>
             <SearchBar
             containerStyle={{
             backgroundColor:colors.BgColor,
@@ -118,7 +148,7 @@ class IncomingScreenView extends React.Component{
                     <ScrollView style={{
                         height: Dimensions.get('window').height - 255
                     }}>
-                        { Incoming }
+                        { incoming }
                     </ScrollView>
                 </View>
             </View>

@@ -289,45 +289,17 @@ class HomeScreenView extends React.Component {
 
         this.state = {
           search: '',
-          markers: [
-          /*
-              {
-                  latlng: {
-                      latitude: 34.983732,
-                      longitude: 136.905862,
-                  },
-                  latitudeDelta: 0.0922,
-                  longitudeDelta: 0.0421
-              },
-              {
-                  latlng: {
-                      latitude: 35.983732,
-                      longitude: 137.905862,
-                  },
-                  latitudeDelta: 0.0922,
-                  longitudeDelta: 0.0421
-              }
-          */
-          ],
+          markers: [],
           region: {
               latitude: lat,
               longitude: lon,
               latitudeDelta: 0.0922,
               longitudeDelta: 0.0421,
           },
-
-          uniqueValue : 0
         }
 
         this.myName = '';
         this.myID = '';
-    }
-
-    forceRemount = () => {
-      console.log('force remount')
-      this.setState(({ uniqueValue }) => ({
-        uniqueValue: uniqueValue + 1
-      }));
     }
 
     showButton = () => {
@@ -342,7 +314,6 @@ class HomeScreenView extends React.Component {
               region={this.state.region}
               placeName={this.state.placeName}
               myID={parseInt(this.myID)}
-              forceRemount={this.forceRemount}
             />
           </View>
         )
@@ -427,49 +398,80 @@ class HomeScreenView extends React.Component {
     async componentDidMount() {
       console.log('mounted');
       // 登録してあるランドマークを取得する処理群
-      let url = 'https://afternoon-fortress-51374.herokuapp.com/locations';
-      let tmpArray = [];
+      let url = 'https://afternoon-fortress-51374.herokuapp.com';
+      var userArray = [];
+      var tmpArray = [];
       this.myName = await AsyncStorage.getItem('myName');
       this.myID = await AsyncStorage.getItem('myID');
 
-      await axios.get(url)
-            .then(async res => {
-              console.log(res.data.data);
-              for(let i in res.data.data) {
-                // 登録者IDが一致するもののみtmpArrayに保存する
-                if(String(res.data.data[i].userid) == await AsyncStorage.getItem('myID')) {
-                  tmpArray.push(res.data.data[i]);
-                }
-              }
+      await axios.get(url + '/locations')
+            .then(async res1 => {
 
-              console.log(tmpArray);
-              // 自分のランドマークをstateに保存する
+              console.log(res1.data.data)
 
-              // 画面を現在位置に移動する処理群
-              turnOffRegionChange = false;
-              getCurrentLocation()
-              .then(async pos => {
-                console.log('get current location');
-                if(pos) {
-                  await this.setState({
-                    region: {
-                      latitude: pos.coords.latitude,
-                      longitude: pos.coords.longitude,
-                      latitudeDelta: latDelta,
-                      longitudeDelta: lonDelta,
-                    }
-                  })
-                }
+              // フレンドのロケーションを表示するために，フレンドをのIDを取得する
+              await axios.get(url + '/relations')
+                    .then(res2 => {
+                      console.log(res2.data);
 
-                await this.setState({markers: tmpArray});
+                      // フレンドのIDのみtmpArrayに格納する
+                      for(let i in res2.data.data) {
+                        if(res2.data.data[i].status) {
+                          if(res2.data.data[i].sourceID == parseInt(this.myID)) {
+                            userArray.push(res2.data.data[i].destinationID);
+                          }
+                          if(res2.data.data[i].destinationID == parseInt(this.myID)) {
+                            userArray.push(res2.data.data[i].sourceID);
+                          }
+                        }
+                      }
 
-                turnOffRegionChange = true;
-                //showButtonVar = true;
+                      // userArrayに自分のIDも格納しておく
+                      userArray.push(this.myID);
 
-                showButtonVar = true;
+                      console.log('userArray: ' + userArray);
 
-                this.forceUpdate();
-              })
+                      for(let j = 0; j <  res1.data.data.length; j++) {
+                        // 登録者IDが一致するもののみtmpArrayに保存する
+                        console.log(res1.data.data[j]);
+                        for(let k = 0; k < userArray.length; k++) {
+                          console.log('=============k: '+userArray[k]+'=============');
+                          console.log('*************j: '+res1.data.data[j].userid+'*************')
+                          if(res1.data.data[j].userid == parseInt(userArray[k])) {
+                            tmpArray.push(res1.data.data[j]);
+                          }
+                        }
+                      }
+
+                      console.log(tmpArray);
+                      // 自分のランドマークをstateに保存する
+
+                      // 画面を現在位置に移動する処理群
+                      turnOffRegionChange = false;
+                      getCurrentLocation()
+                      .then(async pos => {
+                        console.log('get current location');
+                        if(pos) {
+                          await this.setState({
+                            region: {
+                              latitude: pos.coords.latitude,
+                              longitude: pos.coords.longitude,
+                              latitudeDelta: latDelta,
+                              longitudeDelta: lonDelta,
+                            }
+                          })
+                        }
+
+                        await this.setState({markers: tmpArray});
+
+                        turnOffRegionChange = true;
+                        //showButtonVar = true;
+
+                        showButtonVar = true;
+
+                        this.forceUpdate();
+                      })
+                    })
             })
             .catch(e => {
               console.log(e)

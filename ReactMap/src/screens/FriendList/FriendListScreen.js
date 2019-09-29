@@ -42,9 +42,11 @@ class FriendListScreenView extends React.Component {
         })
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         // ユーザー一覧を取得し, statusがtrueのもののみ表示する
         let url = 'https://afternoon-fortress-51374.herokuapp.com';
+        let myID = await AsyncStorage.getItem('myID');
+
         axios.get(url + '/relations')
         .then(res => {
             console.log(res.data.data);
@@ -52,9 +54,12 @@ class FriendListScreenView extends React.Component {
             // まずユーザーのIDを取得する
             for (var i in res.data.data) {
                 if(res.data.data[i].status) {
-                    // フレンドの者だけuserIDlistに格納する
-                    // FIXME: 自分のIDから見たフレンドのみ追加しなくてはならない
-                    this.userIDlist.push(res.data.data[i])
+                    if(res.data.data[i].sourceID == parseInt(myID)) {
+                        this.userIDlist.push(res.data.data[i]);
+                    }
+                    if(res.data.data[i].destinationID == parseInt(myID)) {
+                        this.userIDlist.push(res.data.data[i]);
+                    }
                 }
             }
 

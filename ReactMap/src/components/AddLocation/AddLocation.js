@@ -99,6 +99,7 @@ class AddLocation extends React.Component {
     }
 
     post() {
+        console.log(this.props.myID);
         console.log('add')
         let url = 'https://afternoon-fortress-51374.herokuapp.com/locations';
 
@@ -117,7 +118,6 @@ class AddLocation extends React.Component {
             console.log('-----------------------')
             this.setState({placeName: ''});
             this.textInput.clear();
-            this.props.forceRemount();
         })
         .catch((err) => {
             console.log(err)
