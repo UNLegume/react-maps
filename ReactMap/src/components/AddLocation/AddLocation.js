@@ -115,6 +115,8 @@ class AddLocation extends React.Component {
             console.log('-----------------------')
             console.log(res.data.data);
             console.log('-----------------------')
+            this.setState({placeName: ''});
+            this.textInput.clear();
         })
         .catch((err) => {
             console.log(err)
@@ -177,6 +179,9 @@ class AddLocation extends React.Component {
                     }}
                     onChangeText={(text) => {
                         this.state.placeName = text
+                    }}
+                    ref={input => {
+                        this.textInput = input
                     }}
                     />
 
