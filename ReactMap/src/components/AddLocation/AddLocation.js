@@ -106,7 +106,7 @@ class AddLocation extends React.Component {
         params.append('longitude', this.props.region.longitude)
         params.append('latitude', this.props.region.latitude)
         params.append('place', this.state.placeName)
-        params.append('userid', 0)
+        params.append('userid', this.props.myID)
 
         axios.post(url, params, {
             'Content-Type': 'application/json'

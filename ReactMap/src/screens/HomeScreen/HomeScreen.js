@@ -320,11 +320,12 @@ class HomeScreenView extends React.Component {
         }
 
         this.myName = '';
+        this.myID = '';
     }
 
-    // FIXME: showButtonの描画タイミングをマーカーと合わせる
     showButton = () => {
       if(showButtonVar) {
+        //let myID = await AsyncStorage.getItem('myID');
         console.log('show button');
         return(
           <View style={s.addLocationPosition}>
@@ -332,6 +333,7 @@ class HomeScreenView extends React.Component {
               obtain={this.obtain}
               region={this.state.region}
               placeName={this.state.placeName}
+              myID={parseInt(this.myID)}
             />
           </View>
         )
@@ -419,6 +421,7 @@ class HomeScreenView extends React.Component {
       let url = 'https://afternoon-fortress-51374.herokuapp.com/locations';
       let tmpArray = [];
       this.myName = await AsyncStorage.getItem('myName');
+      this.myID = await AsyncStorage.getItem('myID');
 
       await axios.get(url)
             .then(async res => {
