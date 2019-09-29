@@ -34,7 +34,7 @@ class IncomingScreenView extends React.Component{
         params.append('id', parseInt(myID));
         params.append('destinationID', id);
 
-        axios.post(url + '/relations', params, {
+        axios.post(url + '/accept', params, {
             'Content-Type': 'application/json'
         })
         .then(res => {

@@ -282,7 +282,6 @@ var getCurrentLocation = () => {
 
 class HomeScreenView extends React.Component {
     constructor(props) {
-      console.log('constructor')
         super(props);
         turnOffRegionChange = true;
         this.componentDidMount = this.componentDidMount.bind(this);
@@ -305,8 +304,6 @@ class HomeScreenView extends React.Component {
     showButton = () => {
       if(showButtonVar) {
         //let myID = await AsyncStorage.getItem('myID');
-        console.log('show button');
-        console.log(this.state.uniqueValue);
         return(
           <View style={s.addLocationPosition}>
             <AddLocation
@@ -317,8 +314,6 @@ class HomeScreenView extends React.Component {
             />
           </View>
         )
-      } else {
-        console.log('no button')
       }
     }
 
@@ -332,7 +327,6 @@ class HomeScreenView extends React.Component {
 
     returnMap = () => {
       if(turnOffRegionChange) {
-        console.log('return map');
         return(
           <MapView
               provider={PROVIDER_GOOGLE}
@@ -345,14 +339,8 @@ class HomeScreenView extends React.Component {
               liteMode={true}
               onRegionChangeComplete={
                 () => {
-                  console.log('onRegionChangeComplete');
                   this.forceUpdate();
                   //showButtonVar = true;
-                }
-              }
-              onMapReady={
-                () => {
-                  console.log("map ready");
                 }
               }
           >
@@ -407,13 +395,9 @@ class HomeScreenView extends React.Component {
       await axios.get(url + '/locations')
             .then(async res1 => {
 
-              console.log(res1.data.data)
-
               // フレンドのロケーションを表示するために，フレンドをのIDを取得する
               await axios.get(url + '/relations')
                     .then(res2 => {
-                      console.log(res2.data);
-
                       // フレンドのIDのみtmpArrayに格納する
                       for(let i in res2.data.data) {
                         if(res2.data.data[i].status) {
@@ -429,28 +413,20 @@ class HomeScreenView extends React.Component {
                       // userArrayに自分のIDも格納しておく
                       userArray.push(this.myID);
 
-                      console.log('userArray: ' + userArray);
-
                       for(let j = 0; j <  res1.data.data.length; j++) {
                         // 登録者IDが一致するもののみtmpArrayに保存する
-                        console.log(res1.data.data[j]);
                         for(let k = 0; k < userArray.length; k++) {
-                          console.log('=============k: '+userArray[k]+'=============');
-                          console.log('*************j: '+res1.data.data[j].userid+'*************')
                           if(res1.data.data[j].userid == parseInt(userArray[k])) {
                             tmpArray.push(res1.data.data[j]);
                           }
                         }
                       }
-
-                      console.log(tmpArray);
                       // 自分のランドマークをstateに保存する
 
                       // 画面を現在位置に移動する処理群
                       turnOffRegionChange = false;
                       getCurrentLocation()
                       .then(async pos => {
-                        console.log('get current location');
                         if(pos) {
                           await this.setState({
                             region: {

@@ -113,9 +113,6 @@ class AddLocation extends React.Component {
             'Content-Type': 'application/json'
         })
         .then((res) => {
-            console.log('-----------------------')
-            console.log(res.data.data);
-            console.log('-----------------------')
             this.setState({placeName: ''});
             this.textInput.clear();
         })

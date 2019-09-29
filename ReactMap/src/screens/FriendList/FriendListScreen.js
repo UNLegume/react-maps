@@ -18,6 +18,8 @@ class FriendListScreenView extends React.Component {
 
         this.userIDlist = [];
         this.friendlist = [];
+        this.userList = [];
+        this.myID = '';
     }
 
     // タブをクリックした時に切り替えるための関数
@@ -45,31 +47,31 @@ class FriendListScreenView extends React.Component {
     async componentDidMount() {
         // ユーザー一覧を取得し, statusがtrueのもののみ表示する
         let url = 'https://afternoon-fortress-51374.herokuapp.com';
-        let myID = await AsyncStorage.getItem('myID');
+        this.myID = await AsyncStorage.getItem('myID');
 
         axios.get(url + '/relations')
         .then(res => {
             console.log(res.data.data);
 
             // まずユーザーのIDを取得する
-            for (var i in res.data.data) {
+            for (var i = 0; i < res.data.data.length; i++) {
                 if(res.data.data[i].status) {
-                    if(res.data.data[i].sourceID == parseInt(myID)) {
-                        this.userIDlist.push(res.data.data[i]);
+                    if(res.data.data[i].sourceID == parseInt(this.myID)) {
+                        this.userIDlist.push(res.data.data[i].destinationID);
                     }
-                    if(res.data.data[i].destinationID == parseInt(myID)) {
-                        this.userIDlist.push(res.data.data[i]);
+                    if(res.data.data[i].destinationID == parseInt(this.myID)) {
+                        this.userIDlist.push(res.data.data[i].sourceID);
                     }
                 }
             }
 
             i = 0;
 
-            for(i in this.userIDlist) {
+            for(i = 0; i < this.userIDlist.length; i++) {
                 // idからユーザーの情報を取得する
                 // FIXME:
-                console.log('ID:'+this.userIDlist[i].destinationID)
-                axios.get(url + '/users/' + this.userIDlist[i].destinationID)
+                console.log('ID:'+this.userIDlist[i])
+                axios.get(url + '/users/' + this.userIDlist[i])
                 .then(res => {
                     console.log(res.data.data);
                     this.friendlist.push(res.data.data);
@@ -115,10 +117,10 @@ class FriendListScreenView extends React.Component {
 
     render() {
         const {search} = this.state;
-        let tmpList = []
+        this.userList = []
 
         for(let i = 0; i<this.friendlist.length; i++){
-            tmpList.push(
+            this.userList.push(
                 <ListItem
                 key={i}
                 title={this.friendlist[i].name}
@@ -171,7 +173,7 @@ class FriendListScreenView extends React.Component {
                     <TouchableOpacity
                     onPress={() => {this.switchTab()}}>
                         <Text style={{fontSize:32,color:'#fff'}}>
-                            Koyanagi
+                            Friend List
                         </Text>
                     </TouchableOpacity>
                     {/* <Text style={{fontSize:18,color:'#fff',marginTop:5,}}>Recommend</Text> */}
@@ -180,7 +182,7 @@ class FriendListScreenView extends React.Component {
                     <ScrollView style={{
                         height: Dimensions.get('window').height - 255
                     }}>
-                        { tmpList }
+                        { this.userList }
                     </ScrollView>
                 </View>
             </View>
