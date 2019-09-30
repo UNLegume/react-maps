@@ -63,7 +63,18 @@ class CreateAccountScreenView extends React.Component{
             })
             .then(function(response) {
                 console.log(response);
-                navigated.navigate('Login')
+                Alert.alert(
+                    'ユーザー作成完了',
+                    'ログインしてはじめましょう！',
+                    [
+                        {
+                            text: 'OK',
+                            onPress: () => {
+                                navigated.navigate('Login')
+                            }
+                        }
+                    ]
+                )
             })
             .catch(function(error) {
                 console.log(error);
