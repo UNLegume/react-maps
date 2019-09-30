@@ -10,6 +10,8 @@ import { Alert } from 'react-native';
 class CreateAccountScreenView extends React.Component{
     constructor(props) {
         super(props);
+        this.signup = this.signup.bind(this);
+
         this.state = {
             checked: false,
             UserName: '',
@@ -41,7 +43,9 @@ class CreateAccountScreenView extends React.Component{
         this.setState({Comfirm:text});
     }
 
-    signup = () => {
+    signup() {
+        const navigated = this.props.navigation;
+
         if(this.state.checked) {
             let url = 'https://afternoon-fortress-51374.herokuapp.com'
 
@@ -59,7 +63,7 @@ class CreateAccountScreenView extends React.Component{
             })
             .then(function(response) {
                 console.log(response);
-                this.props.navigation.navigate('Login')
+                navigated.navigate('Login')
             })
             .catch(function(error) {
                 console.log(error);
